@@ -116,7 +116,7 @@ def pretty_print(processed,participant):
       if not approach:
         continue
       # remove blanks to make it easy to insert in Excel
-      values += "".join([t for t in approach if t!=" "]) + ": "
+      values += "".join([t for t in approach if t!=" "]) + " "
       for val in processed[c][approach].keys():
         values += str(processed[c][approach][val]) + " "
       print values
