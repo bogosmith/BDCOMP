@@ -5,6 +5,7 @@ import sys
 import os
 import re
 import operator
+import math
 
 usage = """
   python <script-name> -b benchmark -s submissions -f <yes|no> "floating point or not" -r<yes|no> "whether to round official data or not"
@@ -119,17 +120,19 @@ def score(official, candidate):
   #sys.exit(2)
   return score
 
-def disp_val_array(x, flt):
-  if flt:
+def disp_val_array(x, flt, rnd):
+  if flt and not rnd:
     x = [round(float(t),8) for t in x]
     #x = [float(t) for t in x]
+  elif flt and rnd:
+    x = [round(float(t),1) for t in x]
   else:
     x = [int(t) for t in x]
   x = str(x)
   return x[1:-1].replace(",", " "
 )
 def rank(official_series, submissions):
-  countries = official_series.keys()
+  countries = sorted(official_series.keys())
   for ctry in countries:
     bmark = official_series[ctry]
     if ctry not in submissions:
@@ -144,7 +147,7 @@ def rank(official_series, submissions):
       #  sc = score(bmark,c[a])
       #  marks[a] = sc
     scored = sorted(marks.items(), key = operator.itemgetter(1))
-    print ctry, disp_val_array(bmark, floating)
+    print ctry, "RRMSE" ,disp_val_array(bmark, floating, rounding)
     for a in scored:
       series = []
       for c in candidates:
@@ -152,7 +155,8 @@ def rank(official_series, submissions):
           series = c[a[0]]
       #filter(lambda c: c.keys()[0] == a[0], candidates)
       #print a[0], [float(x) for x in series], round(float(a[1]), 6)
-      print a[0], disp_val_array(series, floating), round(float(a[1]), 8)
+      #print a[0], disp_val_array(series, floating), round(float(a[1]), 8)
+      print a[0], math.sqrt(round(float(a[1]), 8)), disp_val_array(series, floating, False)
     #print scored
 
 if __name__ == "__main__":
