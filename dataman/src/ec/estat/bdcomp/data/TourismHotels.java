@@ -17,7 +17,7 @@ public class TourismHotels extends Indicator {
 	}
 	
 	public String getFilename() {
-		return  ("tour_accom");	
+		return  ("tour_hotel");	
 	}
 	
 	public Vector<String> getCountryAbbreviations() {
