@@ -53,16 +53,26 @@ except NameError:
   print usage
   sys.exit()
 
-def process_line(l):
+def process_line(l, part1=False):
     #print l
     appr = l[:l.index(":")]
     appr = "".join([t for t in appr if t!=" "])
     #print "DDD"
-    gr = re.search("mean:\s*[\d\.]+",l)
+    if part1:
+      gr = re.search("raw:\s*[\d\.]+",l)
+    else:
+      gr = re.search("mean:\s*[\d\.]+",l)
     if gr == None:
       return None, None, None
-    mean = gr.group(0)[5:]
-    # sometimes we have sd = NA. For density scoring we don't need those cases.
+    if part1:
+      mean = gr.group(0)[4:]
+    else:
+      mean = gr.group(0)[5:]
+    # sometimes we have sd = NA. We set to 0.
+    gr = re.search("sd:\s*NA",l)
+    if gr != None:
+      sd = gr.group(0)[3:]
+      return appr, mean, 0
     gr = re.search("sd:\s*[\d\.]+",l)
     if gr == None:
       return None, None, None
@@ -70,7 +80,7 @@ def process_line(l):
     #print appr, mean, sd
     return appr, mean, sd
 
-def process_file(filepath, track, month, series, applyrfs):
+def process_file(filepath, track, month, series, applyrfs, part1):
   #print month
   f = open(filepath, 'r')
   lines = f.readlines()
@@ -98,7 +108,7 @@ def process_file(filepath, track, month, series, applyrfs):
     if intrack and incountry:
         #print filepath
         if len(l.strip()) > 0:
-            approach, mean, sd = process_line(l)
+            approach, mean, sd = process_line(l, part1)
             if approach == None or mean == None or sd == None:
               continue
             if (applyrfs and rf and incountry in rf):
@@ -118,7 +128,7 @@ def process_file(filepath, track, month, series, applyrfs):
               series[incountry][approach][month] = (mean,sd)
             #print series
 
-def process_dir(participant_directory, track, applyrfs):
+def process_dir(participant_directory, track, applyrfs, part1=False):
   res = {}
   rounds = os.listdir(participant_directory)
   rounds = [x for x in rounds if x[:5] == "round"]
@@ -129,7 +139,7 @@ def process_dir(participant_directory, track, applyrfs):
       #print r
       file = participant_directory + "/" + r
       applyrereferencing = applyrfs and (int(r[5:r.index(".")]) >= int(firstmonthtoreref))
-      process_file(file, track, months[r], res, applyrereferencing)
+      process_file(file, track, months[r], res, applyrereferencing, part1)
   return res
 
 def pretty_print(processed,participant):
@@ -160,7 +170,7 @@ parts = os.listdir(directory)
 for p in parts:
   # p is participant in this function call the complicated looking argument compensates for the lack of ternary operator in python
   #print p in rflist
-  processed = process_dir(directory + "/" + p,track,(True, False)[rflist == None or not p in rflist ])
+  processed = process_dir(directory + "/" + p,track,(True, False)[rflist == None or not p in rflist ], p == "DJOLOV")
   #print processed['AT']
   print participants[p]
   pretty_print(processed,p)
