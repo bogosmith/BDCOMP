@@ -55,6 +55,7 @@ def process_line(l):
     return appr, mean 
 
 def process_file(filepath, track, month, series):
+  #print filepath
   f = open(filepath, 'r')
   lines = f.readlines()
   f.close()
@@ -89,7 +90,9 @@ def process_file(filepath, track, month, series):
                     series[incountry] = {}
                 if not approach in series[incountry]:
                     series[incountry][approach] = {}
-            series[incountry][approach][month] = mean
+            #print incountry,intrack
+            if incountry in series:
+              series[incountry][approach][month] = mean
             #print series
 
 def process_dir(participant_directory, track):
