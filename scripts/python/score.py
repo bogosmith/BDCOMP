@@ -4,6 +4,7 @@ import getopt
 import sys
 import os
 import re
+import operator
 
 usage = """
   python <script-name> -b benchmark -s submissions
@@ -90,21 +91,46 @@ def score(official, candidate):
   diffoverofficialsq = [x**2 for x in diffoverofficial]
   # adding 0.0 indicates that we don't want integer division
   score = sum(diffoverofficialsq)/len(diffoverofficialsq)
-  print official
-  print candidate
-  print score
-  sys.exit(2)
+  #print official
+  #print candidate
+  #print score
+  #sys.exit(2)
   return score
 
+def disp_val_array(x, flt):
+  if flt:
+    x = [float(t) for t in x]
+  else:
+    x = [int(t) for t in x]
+  x = str(x)
+  return x[1:-1].replace(",", " "
+)
 def rank(official_series, submissions):
   countries = official_series.keys()
-  for c in countries:
-    bmark = official_series[c]
-    candidates = submissions[c]
+  for ctry in countries:
+    bmark = official_series[ctry]
+    if ctry not in submissions:
+      continue
+    candidates = submissions[ctry]
+    marks = {}
     for c in candidates:
-      appr = c.keys()[0]
-      mark = score(bmark, c[appr])
-      print mark
+      approach_name = c.keys()[0]
+      sc = score(bmark, c[approach_name])
+      marks[approach_name] = sc
+      #for a in c.keys():
+      #  sc = score(bmark,c[a])
+      #  marks[a] = sc
+    scored = sorted(marks.items(), key = operator.itemgetter(1))
+    print ctry, disp_val_array(bmark, False)
+    for a in scored:
+      series = []
+      for c in candidates:
+        if c.keys()[0] == a[0]:
+          series = c[a[0]]
+      #filter(lambda c: c.keys()[0] == a[0], candidates)
+      #print a[0], [float(x) for x in series], round(float(a[1]), 6)
+      print a[0], disp_val_array(series, False), round(float(a[1]), 8)
+    #print scored
 
 if __name__ == "__main__":
   official_series = process_benchmark(benchmark)
