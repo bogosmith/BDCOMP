@@ -7,3 +7,10 @@ time?) between 2016-3-30 and 2016-5-23 so the sdmx first revision series is
 quite off for many countries for February and March as retail trade date is
 often revised. Consequently we take the json data but we insert ireland from
 sdmx manually as it is not in the json dissemination.
+
+Participant 4 submitted a Track 6 forecast for Ireland in round 11 for the
+first time. Needs to be ignored.
+
+Participant 5 participates with EA-18 for HICP instead of EA-19. However as
+this is an index the difference is rather minor so we have kept the
+submission.
