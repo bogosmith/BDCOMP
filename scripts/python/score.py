@@ -7,19 +7,27 @@ import re
 import operator
 
 usage = """
-  python <script-name> -b benchmark -s submissions
+  python <script-name> -b benchmark -s submissions -f <yes|no> "floating point or not"
 """
-opts,args = getopt.getopt(sys.argv[1:], "b:s:")
+opts,args = getopt.getopt(sys.argv[1:], "b:s:f:")
 for o,a in opts:
     if o == "-b":
       benchmark = a
     elif o == "-s":
       submissions = a
+    elif o == "-f":
+      if a == "yes":
+        floating = True
+      elif a == "no":
+        floating = False
+      else:
+        print usage
+        sys.exit(2)
     else:
       print usage
       sys.exit()
 try:
-  benchmark;submissions; 
+  benchmark;submissions;floating 
 except NameError:
   print usage
   sys.exit()
@@ -80,8 +88,12 @@ def process_submissions(filepath, official_series):
   return submissions
 
 def score(official, candidate):
-  official = [int(x) + 0.0 for x in official]
-  candidate = [int(x) + 0.0 for x in candidate]
+  if not floating:
+    official = [int(x) + 0.0 for x in official]
+    candidate = [int(x) + 0.0 for x in candidate]
+  else:
+    official = [float(x) + 0.0 for x in official]
+    candidate = [float(x) + 0.0 for x in candidate]
   if len(official) > len(candidate):
     raise Exception("Series mismatch ", official, candidate)
   candidate = candidate[0:len(official)]
@@ -99,7 +111,8 @@ def score(official, candidate):
 
 def disp_val_array(x, flt):
   if flt:
-    x = [float(t) for t in x]
+    x = [round(float(t),8) for t in x]
+    #x = [float(t) for t in x]
   else:
     x = [int(t) for t in x]
   x = str(x)
@@ -121,7 +134,7 @@ def rank(official_series, submissions):
       #  sc = score(bmark,c[a])
       #  marks[a] = sc
     scored = sorted(marks.items(), key = operator.itemgetter(1))
-    print ctry, disp_val_array(bmark, False)
+    print ctry, disp_val_array(bmark, floating)
     for a in scored:
       series = []
       for c in candidates:
@@ -129,7 +142,7 @@ def rank(official_series, submissions):
           series = c[a[0]]
       #filter(lambda c: c.keys()[0] == a[0], candidates)
       #print a[0], [float(x) for x in series], round(float(a[1]), 6)
-      print a[0], disp_val_array(series, False), round(float(a[1]), 8)
+      print a[0], disp_val_array(series, floating), round(float(a[1]), 8)
     #print scored
 
 if __name__ == "__main__":
