@@ -86,9 +86,21 @@ def process_dir(participant_directory, track):
       process_file(file, track, months[r], res)
   return res
 
+def pretty_print(processed):
+  countries = processed.keys()
+  for c in countries:
+    print c
+    for approach in processed[c].keys():
+      print approach
+      values = ""
+      for val in processed[c][approach].keys():
+        values += str(processed[c][approach][val]) + " "
+      print values
+
 parts = os.listdir(directory)
 for p in parts:
   processed = process_dir(directory + "/" + p,track)
   #print processed['AT']
-  print processed
+  print p
+  pretty_print(processed)
 
