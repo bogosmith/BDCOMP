@@ -2,3 +2,8 @@
 2016-10-21 unicode and json UK almost all series wrong 
 2016-12-16 unicode and json FI several values wrong 
 adjusted retail trade unicode all series wrong
+For unadjusted retail trade there is some missing sdmx data (bad url for some
+time?) between 2016-3-30 and 2016-5-23 so the sdmx first revision series is
+quite off for many countries for February and March as retail trade date is
+often revised. Consequently we take the json data but we insert ireland from
+sdmx manually as it is not in the json dissemination.
