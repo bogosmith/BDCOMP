@@ -9,7 +9,7 @@ usage = """
   python <script-name> -d directory -t track -s <sa|nsa>
 """
 
-geo = ["EU", "EU28" "EA19", "EA-18", "AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "GR", "HU", "IE", "IT", "LV", "LT", "NL", "PL", "PT", "RO", "SK", "SI", "ES", "SE", "UK"]
+geo = ["EU", "EU28", "EA19", "EA-18", "AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "EL", "FI", "FR", "DE", "GR", "HU", "IE", "IT", "LV", "LT", "LU", "MT", "NL", "PL", "PT", "RO", "SK", "SI", "ES", "SE", "UK"]
 participants = {"DJOLOV" : "P1", "ETLA" : "P2", "JRC" : "P3", "WEIGAND" : "P4", "WBS" : "P5"}
 months = {}
 for i in range(1,13):
@@ -41,6 +41,7 @@ except NameError:
 def process_line(l):
     #print l
     appr = l[:l.index(":")]
+    appr = "".join([t for t in appr if t!=" "])
     #print "DDD"
     if sa:
       srch = re.search("sa:\s*[\d\.]+",l)
@@ -107,6 +108,7 @@ def pretty_print(processed,participant):
   countries = processed.keys()
   for c in countries:
     print c
+    #print processed[c].keys()
     #for approach in sorted(processed[c].keys()):
     # ensure numeric sorting by removing letters
     # the 0 at the end ensures that None is transferred to 0 so the code doesn't break
