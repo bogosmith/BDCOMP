@@ -11,7 +11,7 @@ usage = """
 
 geo = ["EU", "EU28" "EA19", "EA-18", "AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "GR", "HU", "IE", "IT", "LV", "LT", "NL", "PL", "PT", "RO", "SK", "SI", "ES", "SE", "UK"]
 months = {}
-for i in range(1,12):
+for i in range(1,13):
     months["round"+str(i)+".txt"]=i
 
 opts,args = getopt.getopt(sys.argv[1:], "d:t:")
@@ -77,7 +77,7 @@ def process_file(filepath, track, month, series):
 def process_dir(participant_directory, track):
   res = {}
   rounds = os.listdir(participant_directory)
-  rounds = [x for x in rounds if x[0] != "."]
+  rounds = [x for x in rounds if x[:5] == "round"]
   # sort by filename to that round2.txt comes before round10.txt
   rounds.sort(key = lambda x:int(x[5:x.index(".")]))
   for r in rounds:
