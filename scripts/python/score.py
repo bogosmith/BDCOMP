@@ -8,14 +8,17 @@ import operator
 import math
 
 usage = """
-  python <script-name> -b benchmark -s submissions -f <yes|no> "floating point or not" -r<yes|no> "whether to round official data or not"
+  python <script-name> -b benchmark -s submissions -f <yes|no> "floating point or not" -r<yes|no> "whether to round official data or not" <-d<yes|no>> "directional accuracy or not"
 """
-opts,args = getopt.getopt(sys.argv[1:], "b:s:f:r:")
+directional = "no"
+opts,args = getopt.getopt(sys.argv[1:], "b:s:f:r:d:")
 for o,a in opts:
     if o == "-b":
       benchmark = a
     elif o == "-s":
       submissions = a
+    elif o == "-d":
+      directional = a
     elif o == "-f":
       if a == "yes":
         floating = True
@@ -35,6 +38,15 @@ for o,a in opts:
     else:
       print usage
       sys.exit()
+
+if directional == "yes":
+  directional = True
+elif directional == "no":
+  directional = False
+else:
+  print usage
+  sys.exit()
+
 try:
   benchmark;submissions;floating 
 except NameError:
@@ -107,7 +119,15 @@ def process_submissions(filepath, official_series):
     submissions[incountry] += [{appr:series}]
   return submissions
 
-def score(official, candidate):
+def convert_to_growth_ind(x):
+    #print x
+    y = [x[i] - x[i-1] for i in range(1,len(x))]
+    # this gives a list of 0s, 1s and -1s depending on whether the value stays, raises or falls
+    y = [t and (1,-1)[t < 0] for t in y]
+    #print y
+    return y
+
+def score(official, candidate, directional):
   if not floating:
     official = [int(x) + 0.0 for x in official]
     candidate = [int(x) + 0.0 for x in candidate]
@@ -119,19 +139,26 @@ def score(official, candidate):
   if len(official) > len(candidate):
     raise Exception("Series mismatch ", official, candidate)
   candidate = candidate[0:len(official)]
-  diff = [official[i] - candidate[i] for i in range(0, len(official))]
-  diffoverofficial = [diff[i]/official[i] for i in range(0, len(diff))]
-  #official - candidate
-  diffoverofficialsq = [x**2 for x in diffoverofficial]
-  # adding 0.0 indicates that we don't want integer division
-  score = sum(diffoverofficialsq)/len(diffoverofficialsq)
-  #print official
-  #print candidate
-  #print score
-  #sys.exit(2)
-  return score
+  if (directional):
+    x = convert_to_growth_ind(official)
+    y = convert_to_growth_ind(candidate)
+    # return the percentage of correctly guessed directions
+    #return sum([x[i] == y[i] for i in range(0,len(x))])*100.0/(len(x) - 1)
+    return sum([x[i] == y[i] for i in range(0,len(x))])
 
-def disp_val_array(x, flt, rnd):
+  else:
+    diff = [official[i] - candidate[i] for i in range(0, len(official))]
+    diffoverofficial = [diff[i]/official[i] for i in range(0, len(diff))]
+    #official - candidate
+    diffoverofficialsq = [x**2 for x in diffoverofficial]
+    # adding 0.0 indicates that we don't want integer division
+    score = sum(diffoverofficialsq)/len(diffoverofficialsq)
+    return score
+
+def disp_val_array(x, flt, rnd, directional):
+  # First to compare directions always round because of issues around 0
+  if directional and flt:
+    rnd = True
   if flt and not rnd:
     x = [round(float(t),8) for t in x]
     #x = [float(t) for t in x]
@@ -139,10 +166,14 @@ def disp_val_array(x, flt, rnd):
     x = [round(float(t),1) for t in x]
   else:
     x = [int(t) for t in x]
+  if directional:
+    x = convert_to_growth_ind(x)
+    # no growth indicator for the first month
+    x = ["*"] + x
   x = str(x)
-  return x[1:-1].replace(",", " "
-)
-def rank(official_series, submissions):
+  return x[1:-1].replace(",", " ").replace("'","")
+
+def rank(official_series, submissions, directional):
   countries = sorted(official_series.keys())
   for ctry in countries:
     bmark = official_series[ctry]
@@ -152,13 +183,13 @@ def rank(official_series, submissions):
     marks = {}
     for c in candidates:
       approach_name = c.keys()[0]
-      sc = score(bmark, c[approach_name])
+      sc = score(bmark, c[approach_name], directional)
       marks[approach_name] = sc
       #for a in c.keys():
       #  sc = score(bmark,c[a])
       #  marks[a] = sc
-    scored = sorted(marks.items(), key = operator.itemgetter(1))
-    print ctry, "RRMSE" ,disp_val_array(bmark, floating, rounding)
+    scored = sorted(marks.items(), key = operator.itemgetter(1), reverse = directional)
+    print ctry, ("RRMSE","ratio_correct")[directional] ,disp_val_array(bmark, floating, rounding, directional)
     for a in scored:
       series = []
       for c in candidates:
@@ -167,7 +198,8 @@ def rank(official_series, submissions):
       #filter(lambda c: c.keys()[0] == a[0], candidates)
       #print a[0], [float(x) for x in series], round(float(a[1]), 6)
       #print a[0], disp_val_array(series, floating), round(float(a[1]), 8)
-      print a[0], math.sqrt(round(float(a[1]), 8)), disp_val_array(series, floating, False)
+      # print the score in a format depending on whether a directional or a normal evaluation is being done
+      print a[0], (math.sqrt(round(float(a[1]), 8)),a[1])[directional], disp_val_array(series, floating, False, directional)
     #print scored
 
 if __name__ == "__main__":
@@ -175,4 +207,4 @@ if __name__ == "__main__":
   submissions = process_submissions(submissions, official_series)
   #print official_series
   #print submissions['ES']
-  rank(official_series, submissions)
+  rank(official_series, submissions, directional)
