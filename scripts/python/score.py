@@ -144,7 +144,9 @@ def score(official, candidate, directional):
     y = convert_to_growth_ind(candidate)
     # return the percentage of correctly guessed directions
     #return sum([x[i] == y[i] for i in range(0,len(x))])*100.0/(len(x) - 1)
-    return sum([x[i] == y[i] for i in range(0,len(x))])
+    score = sum([x[i] == y[i] for i in range(0,len(x))])
+    #return score*100.0/len(x)
+    return score*1.0/len(x)
 
   else:
     diff = [official[i] - candidate[i] for i in range(0, len(official))]
