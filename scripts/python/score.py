@@ -41,6 +41,16 @@ except NameError:
   print usage
   sys.exit()
 
+def substitute(country):
+  if country == "EU28":
+     return "EU"
+  elif country == "EA19":
+     return "EA"
+  elif country == "EA-18":
+     return "EA"
+  else:
+     return country
+
 def process_benchmark(filepath):
   data = {}
   f = open(filepath, 'r')
@@ -81,6 +91,7 @@ def process_submissions(filepath, official_series):
     toks = re.split("\s+", l)
     if len(toks) == 1 and not re.match(r'P\d',toks[0]):
       incountry = toks[0]
+      incountry = substitute(incountry)
       if incountry not in submissions:
         submissions[incountry] = []
       continue
