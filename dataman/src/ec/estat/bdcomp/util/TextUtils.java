@@ -52,7 +52,7 @@ public class TextUtils {
 	    if (s.equals("EA19")) {
 	    	return Series.Country.EA;
 	    }
-	   
+
 	    throw new BDCOMPException("Country " + s + " can't be matched.");
 	}
 

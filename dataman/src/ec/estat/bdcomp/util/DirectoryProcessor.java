@@ -37,9 +37,10 @@ public class DirectoryProcessor {
 					res = Series.mergeSetsOfSeries(res, s);
 				}
 			} catch (BDCOMPException ex) {
+				throw ex;
 				//!! This is masking problems with missing data
-				continue;
-			}			
+				//continue;
+			}
 		}
 		return res;
 	}
@@ -73,7 +74,7 @@ public class DirectoryProcessor {
 					if (!compareVectors(s1, s2)){throw new BDCOMPException("Different series.");}*/
 				
 				}
-				
+
 				if (res.size() == 0) {
 					res = s;
 				} else {					

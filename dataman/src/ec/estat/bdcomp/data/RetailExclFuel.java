@@ -22,7 +22,7 @@ public class RetailExclFuel extends Indicator {
 	}
 	
 	public Vector<String> getCountryAbbreviations() {
-		String[] s = new String[]{"AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "El", "HU", "IE", "IT", "LV", "LT", "LU", "MT", "NL", "PL", "PT", "RO", "SK", "SI", "SP", "SE", "UK", "EA19", "EU28"};
+		String[] s = new String[]{"AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "EL", "ES", "HU", "IE", "IT", "LV", "LT", "LU", "MT", "NL", "PL", "PT", "RO", "SK", "SI", "SP", "SE", "UK", "EA19", "EU28"};
 		return (new Vector<String>(Arrays.asList(s)));
 	}
 	public boolean equals(Indicator j) {		
