@@ -7,9 +7,9 @@ import re
 import operator
 
 usage = """
-  python <script-name> -b benchmark -s submissions -f <yes|no> "floating point or not"
+  python <script-name> -b benchmark -s submissions -f <yes|no> "floating point or not" -r<yes|no> "whether to round official data or not"
 """
-opts,args = getopt.getopt(sys.argv[1:], "b:s:f:")
+opts,args = getopt.getopt(sys.argv[1:], "b:s:f:r:")
 for o,a in opts:
     if o == "-b":
       benchmark = a
@@ -20,6 +20,14 @@ for o,a in opts:
         floating = True
       elif a == "no":
         floating = False
+      else:
+        print usage
+        sys.exit(2)
+    elif o == "-r":
+      if a == "yes":
+        rounding = True
+      elif a == "no":
+        rounding = False
       else:
         print usage
         sys.exit(2)
@@ -94,6 +102,8 @@ def score(official, candidate):
   else:
     official = [float(x) + 0.0 for x in official]
     candidate = [float(x) + 0.0 for x in candidate]
+  if rounding and floating:
+    official = [round(x,1) for x in official]
   if len(official) > len(candidate):
     raise Exception("Series mismatch ", official, candidate)
   candidate = candidate[0:len(official)]
