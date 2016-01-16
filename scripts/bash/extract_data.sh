@@ -57,9 +57,13 @@ wget -O ${outfull}/retail_gross http://ec.europa.eu/eurostat/wdds/rest/data/v2.1
 
 #wget -O ${outfull}/retail_adj http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/unicode/en/sts_trtu_m?indic_bt=TOVV\&s_adj=SWDA\&nace_r2=G47"$tm"
 
-wget -O ${outfull}/retail_adj http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/unicode/en/sts_trtu_m?nace_r2=G47\&indic_bt=TOVV\&time=2015M06\&s_adj=SWDA
+wget -O ${outfull}/retail_adj http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/unicode/en/sts_trtu_m?nace_r2=G47\&indic_bt=TOVV\&s_adj=SWDA"$tm"
 
+# Track 7
 
+wget -O ${outfull}/retail_nofuel_gross http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/unicode/en/sts_trtu_m?indic_bt=TOVT\&s_adj=GROSS\&nace_r2=G47_X_G473"$tm"
+
+wget -O ${outfull}/retail_nofuel_adj http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/unicode/en/sts_trtu_m?nace_r2=G47_X_G473\&indic_bt=TOVV\&s_adj=SWDA"$tm"
 
 #echo $str
 #$str
