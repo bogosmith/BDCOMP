@@ -27,43 +27,57 @@ fi
 
 today=$(date +%Y-%m-%d)
 outfull=$outdir/$today
+outjson=$outfull/json
+outuni=$outfull/unicode
 
 if [ -d "${outfull}" ]; then
   datefull
 fi
 
 mkdir ${outfull}
+mkdir ${outjson}
+mkdir ${outuni}
+
 echo $outfull
 tm="&time=2015M11&time=2015M12&time=2016M01&time=2016M02&time=2016M03&time=2016M04&time=2016M05&time=2016M06&time=2016M07&time=2016M08&time=2016M09&time=2016M10&time=2016M11&time=2016M12"
 
 # Track 1
-wget -O ${outfull}/unem_nsa http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/unicode/en/une_nb_m?age=TOTAL\&sex=T\&s_adj=NSA"$tm"
-wget -O ${outfull}/unem_sa http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/unicode/en/une_nb_m?age=TOTAL\&sex=T\&s_adj=SA\&"$tm"
+wget -O ${outuni}/unem_nsa http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/unicode/en/une_nb_m?age=TOTAL\&sex=T\&s_adj=NSA"$tm"
+wget -O ${outjson}/unem_nsa http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/json/en/une_nb_m?age=TOTAL\&sex=T\&s_adj=NSA"$tm"
+
+wget -O ${outuni}/unem_sa http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/unicode/en/une_nb_m?age=TOTAL\&sex=T\&s_adj=SA\&"$tm"
+wget -O ${outjson}/unem_sa http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/json/en/une_nb_m?age=TOTAL\&sex=T\&s_adj=SA\&"$tm"
 
 # Track 2
-wget -O ${outfull}/hicp http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/unicode/en/prc_hicp_midx?age=TOTAL\&coicop=CP00\&unit=I05"$tm"
+wget -O ${outuni}/hicp http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/unicode/en/prc_hicp_midx?coicop=CP00\&unit=I05"$tm"
+wget -O ${outjson}/hicp http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/json/en/prc_hicp_midx?coicop=CP00\&unit=I05"$tm"
 
 # Track 3
-wget -O ${outfull}/hicp_x_nrg http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/unicode/en/prc_hicp_midx?age=TOTAL\&coicop=TOT_X_NRG\&unit=I05"$tm"
+wget -O ${outuni}/hicp_x_nrg http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/unicode/en/prc_hicp_midx?age=TOTAL\&coicop=TOT_X_NRG\&unit=I05"$tm"
+wget -O ${outjson}/hicp_x_nrg http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/json/en/prc_hicp_midx?age=TOTAL\&coicop=TOT_X_NRG\&unit=I05"$tm"
 
 # Track 4
-wget -O ${outfull}/tour_accom http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/unicode/en/tour_occ_nim?unit=NR\&nace_r2=I551\-I553\&indic_to=B006"$tm"
+wget -O ${outuni}/tour_accom http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/unicode/en/tour_occ_nim?unit=NR\&nace_r2=I551\-I553\&indic_to=B006"$tm"
+wget -O ${outjson}/tour_accom http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/json/en/tour_occ_nim?unit=NR\&nace_r2=I551\-I553\&indic_to=B006"$tm"
 
 # Track 5
-wget -O ${outfull}/tour_hotel http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/unicode/en/tour_occ_nim?unit=NR\&nace_r2=I551\&indic_to=B006"$tm"
+wget -O ${outuni}/tour_hotel http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/unicode/en/tour_occ_nim?unit=NR\&nace_r2=I551\&indic_to=B006"$tm"
+wget -O ${outjson}/tour_hotel http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/json/en/tour_occ_nim?unit=NR\&nace_r2=I551\&indic_to=B006"$tm"
 
 # Track 6
-wget -O ${outfull}/retail_gross http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/unicode/en/sts_trtu_m?indic_bt=TOVT\&s_adj=GROSS\&nace_r2=G47"$tm"
+wget -O ${outuni}/retail_gross http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/unicode/en/sts_trtu_m?indic_bt=TOVT\&s_adj=GROSS\&nace_r2=G47"$tm"
+wget -O ${outjson}/retail_gross http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/json/en/sts_trtu_m?indic_bt=TOVT\&s_adj=GROSS\&nace_r2=G47"$tm"
 
-#wget -O ${outfull}/retail_adj http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/unicode/en/sts_trtu_m?indic_bt=TOVV\&s_adj=SWDA\&nace_r2=G47"$tm"
-
-wget -O ${outfull}/retail_adj http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/unicode/en/sts_trtu_m?nace_r2=G47\&indic_bt=TOVV\&s_adj=SWDA"$tm"
+wget -O ${outuni}/retail_adj http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/unicode/en/sts_trtu_m?nace_r2=G47\&indic_bt=TOVV\&s_adj=SWDA"$tm"
+wget -O ${outjson}/retail_adj http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/json/en/sts_trtu_m?nace_r2=G47\&indic_bt=TOVV\&s_adj=SWDA"$tm"
 
 # Track 7
 
-wget -O ${outfull}/retail_nofuel_gross http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/unicode/en/sts_trtu_m?indic_bt=TOVT\&s_adj=GROSS\&nace_r2=G47_X_G473"$tm"
+wget -O ${outuni}/retail_nofuel_gross http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/unicode/en/sts_trtu_m?indic_bt=TOVT\&s_adj=GROSS\&nace_r2=G47_X_G473"$tm"
+wget -O ${outjson}/retail_nofuel_gross http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/json/en/sts_trtu_m?indic_bt=TOVT\&s_adj=GROSS\&nace_r2=G47_X_G473"$tm"
 
-wget -O ${outfull}/retail_nofuel_adj http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/unicode/en/sts_trtu_m?nace_r2=G47_X_G473\&indic_bt=TOVV\&s_adj=SWDA"$tm"
+wget -O ${outuni}/retail_nofuel_adj http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/unicode/en/sts_trtu_m?nace_r2=G47_X_G473\&indic_bt=TOVV\&s_adj=SWDA"$tm"
+wget -O ${outjson}/retail_nofuel_adj http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/json/en/sts_trtu_m?nace_r2=G47_X_G473\&indic_bt=TOVV\&s_adj=SWDA"$tm"
 
 #echo $str
 #$str
