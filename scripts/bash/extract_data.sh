@@ -83,27 +83,39 @@ wget -O ${outsdmx}/tour_hotel_compressed http://ec.europa.eu/eurostat/SDMX/diss-
 xmllint --format ${outsdmx}/tour_hotel_compressed --output ${outsdmx}/tour_hotel
 
 # Track 6
-wget -O ${outuni}/retail_gross http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/unicode/en/sts_trtu_m?indic_bt=TOVT\&s_adj=GROSS\&nace_r2=G47"$tm"
-wget -O ${outjson}/retail_gross http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/json/en/sts_trtu_m?indic_bt=TOVT\&s_adj=GROSS\&nace_r2=G47"$tm"
-wget -O ${outsdmx}/retail_gross_compressed http://ec.europa.eu/eurostat/SDMX/diss-web/rest/data/sts_trtu_m/M.TOVT.G47.GROSS.?startPeriod=2015-12-01\&endPeriod=2016-12-31
+#wget -O ${outuni}/retail_gross http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/unicode/en/sts_trtu_m?indic_bt=TOVT\&s_adj=GROSS\&nace_r2=G47"$tm"
+#wget -O ${outjson}/retail_gross http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/json/en/sts_trtu_m?indic_bt=TOVT\&s_adj=GROSS\&nace_r2=G47"$tm"
+#wget -O ${outsdmx}/retail_gross_compressed http://ec.europa.eu/eurostat/SDMX/diss-web/rest/data/sts_trtu_m/M.TOVT.G47.GROSS.?startPeriod=2015-12-01\&endPeriod=2016-12-31
+wget -O ${outuni}/retail_gross http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/unicode/en/sts_trtu_m?indic_bt=TOVT\&s_adj=NSA\&nace_r2=G47"$tm"
+wget -O ${outjson}/retail_gross http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/json/en/sts_trtu_m?indic_bt=TOVT\&s_adj=NSA\&nace_r2=G47"$tm"
+wget -O ${outsdmx}/retail_gross_compressed http://ec.europa.eu/eurostat/SDMX/diss-web/rest/data/sts_trtu_m/M.TOVT.G47.NSA.?startPeriod=2015-12-01\&endPeriod=2016-12-31
 xmllint --format ${outsdmx}/retail_gross_compressed --output ${outsdmx}/retail_gross
 
 
-wget -O ${outuni}/retail_adj http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/unicode/en/sts_trtu_m?nace_r2=G47\&indic_bt=TOVV\&s_adj=SWDA"$tm"
-wget -O ${outjson}/retail_adj http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/json/en/sts_trtu_m?nace_r2=G47\&indic_bt=TOVV\&s_adj=SWDA"$tm"
-wget -O ${outsdmx}/retail_adj_compressed http://ec.europa.eu/eurostat/SDMX/diss-web/rest/data/sts_trtu_m/M.TOVV.G47.SWDA.?startPeriod=2015-12-01\&endPeriod=2016-12-31
+#wget -O ${outuni}/retail_adj http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/unicode/en/sts_trtu_m?nace_r2=G47\&indic_bt=TOVV\&s_adj=SWDA"$tm"
+#wget -O ${outjson}/retail_adj http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/json/en/sts_trtu_m?nace_r2=G47\&indic_bt=TOVV\&s_adj=SWDA"$tm"
+#wget -O ${outsdmx}/retail_adj_compressed http://ec.europa.eu/eurostat/SDMX/diss-web/rest/data/sts_trtu_m/M.TOVV.G47.SWDA.?startPeriod=2015-12-01\&endPeriod=2016-12-31
+wget -O ${outuni}/retail_adj http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/unicode/en/sts_trtu_m?nace_r2=G47\&indic_bt=TOVV\&s_adj=SCA"$tm"
+wget -O ${outjson}/retail_adj http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/json/en/sts_trtu_m?nace_r2=G47\&indic_bt=TOVV\&s_adj=SCA"$tm"
+wget -O ${outsdmx}/retail_adj_compressed http://ec.europa.eu/eurostat/SDMX/diss-web/rest/data/sts_trtu_m/M.TOVV.G47.SCA.?startPeriod=2015-12-01\&endPeriod=2016-12-31
 xmllint --format ${outsdmx}/retail_adj_compressed --output ${outsdmx}/retail_adj
 
 # Track 7
 
-wget -O ${outuni}/retail_nofuel_gross http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/unicode/en/sts_trtu_m?indic_bt=TOVT\&s_adj=GROSS\&nace_r2=G47_X_G473"$tm"
-wget -O ${outjson}/retail_nofuel_gross http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/json/en/sts_trtu_m?indic_bt=TOVT\&s_adj=GROSS\&nace_r2=G47_X_G473"$tm"
-wget -O ${outsdmx}/retail_nofuel_gross_compressed http://ec.europa.eu/eurostat/SDMX/diss-web/rest/data/sts_trtu_m/M.TOVT.G47_X_G473.GROSS.?startPeriod=2015-12-01\&endPeriod=2016-12-31
+#wget -O ${outuni}/retail_nofuel_gross http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/unicode/en/sts_trtu_m?indic_bt=TOVT\&s_adj=GROSS\&nace_r2=G47_X_G473"$tm"
+#wget -O ${outjson}/retail_nofuel_gross http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/json/en/sts_trtu_m?indic_bt=TOVT\&s_adj=GROSS\&nace_r2=G47_X_G473"$tm"
+#wget -O ${outsdmx}/retail_nofuel_gross_compressed http://ec.europa.eu/eurostat/SDMX/diss-web/rest/data/sts_trtu_m/M.TOVT.G47_X_G473.GROSS.?startPeriod=2015-12-01\&endPeriod=2016-12-31
+wget -O ${outuni}/retail_nofuel_gross http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/unicode/en/sts_trtu_m?indic_bt=TOVT\&s_adj=NSA\&nace_r2=G47_X_G473"$tm"
+wget -O ${outjson}/retail_nofuel_gross http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/json/en/sts_trtu_m?indic_bt=TOVT\&s_adj=NSA\&nace_r2=G47_X_G473"$tm"
+wget -O ${outsdmx}/retail_nofuel_gross_compressed http://ec.europa.eu/eurostat/SDMX/diss-web/rest/data/sts_trtu_m/M.TOVT.G47_X_G473.NSA.?startPeriod=2015-12-01\&endPeriod=2016-12-31
 xmllint --format ${outsdmx}/retail_nofuel_gross_compressed --output ${outsdmx}/retail_nofuel_gross
 
-wget -O ${outuni}/retail_nofuel_adj http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/unicode/en/sts_trtu_m?nace_r2=G47_X_G473\&indic_bt=TOVV\&s_adj=SWDA"$tm"
-wget -O ${outjson}/retail_nofuel_adj http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/json/en/sts_trtu_m?nace_r2=G47_X_G473\&indic_bt=TOVV\&s_adj=SWDA"$tm"
-wget -O ${outsdmx}/retail_nofuel_adj_compressed http://ec.europa.eu/eurostat/SDMX/diss-web/rest/data/sts_trtu_m/M.TOVV.G47_X_G473.GROSS.?startPeriod=2015-12-01\&endPeriod=2016-12-31
+#wget -O ${outuni}/retail_nofuel_adj http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/unicode/en/sts_trtu_m?nace_r2=G47_X_G473\&indic_bt=TOVV\&s_adj=SWDA"$tm"
+#wget -O ${outjson}/retail_nofuel_adj http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/json/en/sts_trtu_m?nace_r2=G47_X_G473\&indic_bt=TOVV\&s_adj=SWDA"$tm"
+#wget -O ${outsdmx}/retail_nofuel_adj_compressed http://ec.europa.eu/eurostat/SDMX/diss-web/rest/data/sts_trtu_m/M.TOVV.G47_X_G473.SWDA.?startPeriod=2015-12-01\&endPeriod=2016-12-31
+wget -O ${outuni}/retail_nofuel_adj http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/unicode/en/sts_trtu_m?nace_r2=G47_X_G473\&indic_bt=TOVV\&s_adj=SCA"$tm"
+wget -O ${outjson}/retail_nofuel_adj http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/json/en/sts_trtu_m?nace_r2=G47_X_G473\&indic_bt=TOVV\&s_adj=SCA"$tm"
+wget -O ${outsdmx}/retail_nofuel_adj_compressed http://ec.europa.eu/eurostat/SDMX/diss-web/rest/data/sts_trtu_m/M.TOVV.G47_X_G473.SCA.?startPeriod=2015-12-01\&endPeriod=2016-12-31
 xmllint --format ${outsdmx}/retail_nofuel_adj_compressed --output ${outsdmx}/retail_nofuel_adj
 
 #echo $str
