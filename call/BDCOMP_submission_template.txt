@@ -9,25 +9,26 @@
 # Track1(Unemployment level)
 # Track2(HICP - All items)
 # Track3(HICP - All items excluding energy)
-# Track4(Tourism – number of nights spent at tourist accommodation establishments)
-# Track5(Tourism – number of nights spent at hotels and similar accommodation)
+# Track4(Tourism - number of nights spent at tourist accommodation establishments)
+# Track5(Tourism - number of nights spent at hotels and similar accommodation)
 # Track6(Volume of retail trade)
 # Track7(Volume of retail trade excluding automotive fuel)
 # Different tracks should be separated by an empty line.
 #
 # For each area (country or EU/EZ aggregate) within a track approaches should be separated by one empty line.
-# For each approach the following components are allowed raw, sd and sa where
-# raw is a mandatory component with the raw estimate, 
-# sd is an optional component with the standard deviation of the raw estimate,
+# For each approach the following components are allowed raw, mean, sd and sa where
+# raw is a mandatory component with the raw estimate,
+# mean is an optional component with the mean of the density estimate(arbitrary precision), 
+# sd is an optional component with the standard deviation of the density estimate(arbitrary precision),
 # sa is an optional component with the adjusted estimate. The adjustments are outlined in the call. Not applicable for tracks 4 and 5.
-# Standard deviation and adjusted estimates will be used for the supplementary evaluation measures.
+# Density and adjusted estimates will be used for the supplementary evaluation measures.
 # The format for each approach is as follows:
 #
-# ApproachX: raw:n sd:n sa:n
+# ApproachX: raw:n mean:n sd:n sa:n
 #
-# where each n is either an integer or a decimal with one digit after the separator which is a dot '.' .
+# where for raw and sa n is either an integer or a decimal with one digit after the separator which is a dot '.' and for mean and sd n is an arbitrary precision decimal.
 #
-# For tracks 2,3,6 and 7 the forecast should be a number with precision of one digit after the floating point.
+# For tracks 2,3,6 and 7 the raw forecast should be a number with precision of one digit after the floating point. While the density forecast should be a number with arbitrary precision.
 # For tracks 1,4 and 5 the forecast should be an integer representing the number forecast it is not required that that integer be a multiple of 1000.
 #
 # Approaches are outlined in a separate document accompanying the first submission and have to be consistent between submissions for evaluation purposes.
@@ -43,17 +44,17 @@ Round 4
 
 Track1(Unemployment level):
 SK
-Approach1: raw:312 sd:3 sa:294
-Approach2: raw:305 sd:5.20 sa:299
+Approach1: raw:312 mean:312 sd:3 sa:294
+Approach2: raw:305 mean:305 sd:5.20 sa:299
 
 NL
 Approach1: raw:583 sa:577
 
 Track3 (HICP all items):
 DE
-Approach1: raw:116.5 sd:0.1
+Approach1: raw:116.5 mean:116.484 sd:0.143
 
-Track5 (Tourism – number of nights spent at tourist accommodation establishments):
+Track5 (Tourism - number of nights spent at tourist accommodation establishments):
 NL
 Approach1: raw:7452423 sd:2345
 
