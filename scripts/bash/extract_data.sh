@@ -56,16 +56,16 @@ xmllint --format ${outsdmx}/unem_sa_compressed --output ${outsdmx}/unem_sa
 
 
 # Track 2
-wget -O ${outuni}/hicp http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/unicode/en/prc_hicp_midx?coicop=CP00\&unit=I05"$tm"
-wget -O ${outjson}/hicp http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/json/en/prc_hicp_midx?coicop=CP00\&unit=I05"$tm"
-wget -O ${outsdmx}/hicp_compressed http://ec.europa.eu/eurostat/SDMX/diss-web/rest/data/prc_hicp_midx/M.I05.CP00..?startPeriod=2015-12-01\&endPeriod=2016-12-31
+wget -O ${outuni}/hicp http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/unicode/en/prc_hicp_midx05?coicop=CP00\&unit=I05"$tm"
+wget -O ${outjson}/hicp http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/json/en/prc_hicp_midx05?coicop=CP00\&unit=I05"$tm"
+wget -O ${outsdmx}/hicp_compressed http://ec.europa.eu/eurostat/SDMX/diss-web/rest/data/prc_hicp_midx05/M.I05.CP00..?startPeriod=2015-12-01\&endPeriod=2016-12-31
 xmllint --format ${outsdmx}/hicp_compressed --output ${outsdmx}/hicp
 
 
 # Track 3
-wget -O ${outuni}/hicp_x_nrg http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/unicode/en/prc_hicp_midx?age=TOTAL\&coicop=TOT_X_NRG\&unit=I05"$tm"
-wget -O ${outjson}/hicp_x_nrg http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/json/en/prc_hicp_midx?age=TOTAL\&coicop=TOT_X_NRG\&unit=I05"$tm"
-wget -O ${outsdmx}/hicp_x_nrg_compressed http://ec.europa.eu/eurostat/SDMX/diss-web/rest/data/prc_hicp_midx/M.I05.TOT_X_NRG..?startPeriod=2015-12-01\&endPeriod=2016-12-31
+wget -O ${outuni}/hicp_x_nrg http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/unicode/en/prc_hicp_midx?age=TOTAL\&coicop=TOT_X_NRG\&unit=I15"$tm"
+wget -O ${outjson}/hicp_x_nrg http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/json/en/prc_hicp_midx?age=TOTAL\&coicop=TOT_X_NRG\&unit=I15"$tm"
+wget -O ${outsdmx}/hicp_x_nrg_compressed http://ec.europa.eu/eurostat/SDMX/diss-web/rest/data/prc_hicp_midx/M.I15.TOT_X_NRG..?startPeriod=2015-12-01\&endPeriod=2016-12-31
 xmllint --format ${outsdmx}/hicp_x_nrg_compressed --output ${outsdmx}/hicp_x_nrg
 
 
