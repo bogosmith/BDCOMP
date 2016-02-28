@@ -1,0 +1,549 @@
+\documentclass[12pt]{article}
+\usepackage{hyperref}
+\usepackage{parskip}
+\usepackage{longtable}
+\setlength{\parindent}{0pt}
+\def\UrlBreaks{\do\/\do-\do\_}
+
+\title{Call for participation in BDCOMP - the Big Data for Official Statistics Competition}
+\begin{document}
+\maketitle
+
+\section{Introduction}
+BDCOMP is a competition organized by Eurostat. It has a Scientific Committee composed of colleagues from various member and observer organisations of the ESS \footnote{The European Statistical System (ESS) is the partnership between the Community statistical authority, which is the Commission (Eurostat), and the national statistical institutes (NSIs) and other national authorities responsible in each Member State for the development, production and dissemination of European statistics.}. In this competition teams or individuals will solve specific statistics-related problems. The first instalment of the competition features exclusively nowcasting tasks.
+
+%The relevance of big data for official statistics has often been recognized at %European and global level. It is expected that the emergence of new data sources %together with new ways of working in a continuously evolving data ecosystem will %require new methodologies for tackling new issues as well as old ones. This means %that, simultaneously, new challenges and new opportunities for official statistics %will arrive.
+
+The main goal of the competition is to discover promising methodologies and data sources that could, now or in the future, be used to improve the production of official statistics in the ESS.
+
+
+%In order for big data to be used effectively in official statistics, we need new %methodologies that cope with the new challenges it brings, while continuing to %deal with the traditional challenges in the field. We want the competition to %serve as a forum for assessing different statistical methodologies and data %sources. The goal is to discover methodologies and data sources that will allow %the improvement of the statistical production process in the European %Statistical System with new data sources.
+
+%In order to enable the ESS   to prepare for these challenges and opportunities, %Eurostat launches an evaluation forum for data sources and statistical methods. The %main objective of this forum is to screen methodologies and data sources by means of %a quantitative evaluation process. The focus is on methodologies and sources that %would facilitate the use of big data for the production of official statistics. 
+
+%The forum takes the form of a competition where participants – teams or individuals - %solve specific statistics-related problems. The first instalment of the competition %features exclusively nowcasting tasks.
+
+\newpage
+\section{Contact}
+
+The website of the competition is: 
+
+\url{http://www.cros-portal.eu/content/bdcomp}.
+
+Any questions and comments should be addressed to:
+
+\href{mailto:ESTAT-BDCOMP@ec.europa.eu}{ESTAT-BDCOMP@ec.europa.eu}
+
+\newpage
+\section{Competition outline and target audience}
+
+We have chosen the competition format for two main reasons:
+\begin{itemize}
+	\item{ similar competitions have proven to be good at stimulating innovation in many related areas (e.g. machine learning)}
+	\item{competitions provide a rare opportunity to bring different research communities together and evaluate approaches directly.}
+\end{itemize}
+
+The basic idea of the first instalment of the competition is to nowcast economic indicators using big data sources. By 'nowcasting' we understand the forecasting of some statistical indicator with extremely tight timeliness – sometimes even before the reference period is over. Better timeliness is a recurring demand for official statistics so the benefits of developing new approaches to obtain estimates faster should be obvious. Even where a satisfactorily accurate flash estimate is already available an alternative methodology carries significant potential secondary benefits like reduced cost, improved robustness and applicability in cases where a developed statistical system is still not established.
+Even though the purpose of BDCOMP is to evaluate big data sources and related methods the competition is also open to participants who use other methods and/or sources.Since we want to have a complete and objective picture of all the different approaches we will, for example, accept submissions using pure single variable time series techniques 
+
+
+A participant in BDCOMP can be any individual or team. There are no restrictions on how participants organize themselves: individuals, private companies and representatives of public and/or research institutions are equally welcome to participate. The only exception is that \textbf{persons who are directly involved with the production of official statistics cannot participate neither on their own nor as part of a team in the competition for the indicator that they are producing}. 
+
+\newpage
+\section{Timeline}
+\begin{itemize}
+\item{Deadline for registration: 10 January 2016}
+\item{Competition submissions: 20 January 2016 -- 1 January 2017 (one submission round per month; for detailed submission schedule please refer to Section~\ref{sec:details} below).}
+\item{Evaluation and allocation of NTTS\footnote{The 'New Techniques and Technologies for Statistics' (NTTS) is an international biennial scientific conference series organised by Eurostat. It deals with the new techniques and methods for official statistics, and the impact of new technologies on the statistical collection, production and dissemination systems. As outlined in Section~\ref{sec:awards} some participants will be invited to present their work at that conference.} 2017 presentation slots:  5 January 2017 -– 15 January 2017}
+\item{Presentation of winning contributions at NTTS 2017: March 2017}
+\end{itemize}
+
+\newpage
+\section{Description of the tracks and tasks}
+\label{sec:tasks}
+This instalment of BDCOMP has seven tracks which are subdivided in 30 tasks each and for each task multiple approaches are allowed. 
+
+Each \textbf{track} corresponds to a statistical indicator. All the indicators used are released with a monthly frequency. The reference indicators used for evaluation are published on EUROBASE \footnote{EUROBASE is the Eurostat dissemination database.It contains the full range of publically available data from Eurostat. }:
+
+\url{http://ec.europa.eu/eurostat/data/database}
+
+A \textbf{task} is a combination of a track (i.e. statistical indicator) and an EU Member State \footnote{A list of EU member states is available here: \url{http://europa.eu/about-eu/countries/member-countries/index_en.htm}} or a track and an aggregate – European Union (EU28) or eurozone (EA19) \footnote{The eurozone (or euro area) consists of those EU Member States that use the euro. A list of those Member States is available here:
+
+ \url{https://www.ecb.europa.eu/euro/intro/html/map.en.html}}. For example a task could be the Harmonised Index of Consumer Prices (HICP) for the Eurozone or the volume of retail trade for Luxembourg.
+Participants will be expected to submit their nowcasts for their chosen tasks in line with the calendar in Section~\ref{sec:details}.
+
+Each participant will have the opportunity to compete on multiple tasks. 
+
+Each participant will be allowed up to 20 \textbf{approaches} \footnote{This restriction is placed in order to prevent participants from exploiting effects related to the phenomenon of spurious correlation.}  for each task.
+
+Participants must follow through each approach consistently during the whole competition and have all approaches properly documented by the end of it.
+
+If a new approach is taken up in a submission which is not the first submission the approach will not be evaluated at the end. 
+
+If a task or an approach is omitted for one submission then this task or approach will not be evaluated at the end. 
+
+The goal is to have time series of equal length for each task from all the participants and for all approaches used by participants \footnote{For some particular tracks it may happen that when the evaluation period starts published figures for some member states are unavailable for the last period of the competition. Only if such a case occurs will shorter series will be used for evaluation for the series of the states concerned.}.
+
+Each approach to a given task has to be consistent throughout the whole competition and fully automatable, i.e. it should correspond to an algorithm that can be programmed to run on an (idealised) computer. This consistency requirement is hard to define precisely for all cases but normally it would mean that model parameters or the model itself can only be changed using an automated parameter tuning or model-selection procedure chosen in advance.
+The rationale for this requirement is that an approach that is observed to perform unsatisfactorily after several submissions should not be dropped and substituted with another approach. 
+
+For \textbf{reproducible submissions} where code and data are available, the evaluating team can check that there has been no substitution of approaches. 
+
+For \textbf{closed submissions}, the evaluating team will have to rely on the required descriptions of the methods used and participants’ declarations of honour that the methods they described were indeed the methods they used.
+
+
+\paragraph{Track 1:  Unemployment level (total)}
+\textbf{ }\\
+(Eurobase code: une\_nb\_m, AGE: TOTAL, SEX: T)
+
+An unemployed person is defined by Eurostat, according to the guidelines of the International Labour Organization, as:
+
+\begin{itemize}
+	\item{someone aged 15 to 74 (in Italy, Spain, the United Kingdom, Iceland, Norway: 16 to 74 years);}
+	\item{without work during the reference week;}
+	\item{available to start work within the next two weeks (or has already found a job to start within the next three months);}
+	\item{actively having sought employment at some time during the last four weeks.}
+\end{itemize}
+The unemployment level is the number of people unemployed. The data is published in thousands of persons. 
+
+The production of this indicator is mainly based on the quarterly EU Labour Force Survey(LFS). For all countries, the non-seasonally adjusted quarterly averages of the monthly series are benchmarked to the quarterly LFS figures. However,how the figures for the individual months are calculated depends on the availability and specific characteristics of the sources in individual Member States.
+More information on the LFS is available here:
+
+\url{http://ec.europa.eu/eurostat/statistics-explained/index.php/EU_labour_force_survey}
+
+More information on the production methodology is available here:
+
+\url{http://ec.europa.eu/eurostat/cache/metadata/en/une_esms.htm}
+
+Unemployment data is released at around 31 days after the end of the reference month including seasonally adjusted figures. These releases will be used as the benchmark for evaluation purposes. 
+
+Non-seasonally adjusted figures will be used for the \textbf{point estimate accuracy measure}:
+
+(Eurobase code: une\_nb\_m, AGE: TOTAL, SEX: T, S\_ADJ:NSA).
+
+Seasonally adjusted figures will be used for the \textbf{directional accuracy measure}: 
+
+(Eurobase code: une\_nb\_m, AGE: TOTAL, SEX: T, S\_ADJ:SA).
+
+Very small countries have very stable time series. This is due to rounding effects resulting from fact that numbers are reported in thousands of people. For this reason we decided to include in the competition only countries where the number of unemployed people was at least 20000 at least once in the 12 months before the launch of the competition.
+
+\textbf{It will therefore not be possible to choose Luxembourg or Malta for this track.}
+
+\paragraph{Track 2:  HICP - All items (base 2005)}
+\label{track_hicp_cp00}
+\textbf{ }\\
+(Eurobase code: prc\_hicp\_midx, COICOP: CP00, UNIT: I05)
+
+The published figures are also available here:
+
+\url{http://ec.europa.eu/eurostat/product?lang=en&mode=view&code=teicp000}
+
+The HICP measures the changes over time in the prices of consumer goods and services acquired by households. The HICP provides the official measure of consumer price inflation in the euro area for the purpose of monetary policy and for the assessment of inflation convergence as required under the Maastricht criteria. HICPs are compiled on the basis of harmonized standards, binding for all Member States. Conceptually, the HICPs are Laspeyres-type price indices and are computed as annual chain-indices allowing for weights changing each year. HICP data are published twice a month. A flash estimate for the euro area is published at the end of the month followed by the full series of indices for Member States and at European level). Flash estimates for some Member States are available earlier.
+Reference metadata and information on the production methodology, including on weighting update practices, is available here:
+\sloppy
+%\newline
+%\url{http://ec.europa.eu/eurostat/statistics-explained/index.php/HICP_methodology}
+\newline
+\url{http://ec.europa.eu/eurostat/web/hicp/methodology/metadata-and-national-practices}
+\newline
+\url{http://ec.europa.eu/eurostat/cache/metadata/en/prc_hicp_esms.htm}
+
+For evaluation purposes we will use the mid-month estimate which is released at around T + 15 days and is known to be relatively stable. Published figures are not seasonally adjusted. 
+
+The same figure will be used for the \textbf{point estimate accuracy measure} and the \textbf{directional accuracy measure}:
+
+(Eurobase code: prc\_hicp\_midx, COICOP: CP00, UNIT: I05).
+
+
+For countries where figures are published with two digits after the decimal point we will use a rounding of the official estimate to one digit after the decimal point applying a 'round half up' rounding scheme. For example, according to this scheme 121.45 is rounded to 121.5 and 99.96 is rounded to 100.0.
+
+
+%Keep in mind that baskets weights and country weights change every year at the %beginning of the year. 
+
+\paragraph{Track 3: HICP - All items excluding energy (base 2005)}
+\textbf{ }\\
+(Eurobase code: prc\_hicp\_midx, COICOP: TOT\_X\_NRG, UNIT: I05)
+
+
+The published figures are also available here:
+
+\url{http://ec.europa.eu/eurostat/product?lang=en&mode=view&code=teicp210}
+
+Energy is considered a volatile component within the HICP index.  Excluding it could in principle lead to an index that is less susceptible to hard to predict shocks coming from changes in energy prices.
+
+The general information, links for methodology and reference metadata and the information on evaluation from Track 2 are applicable also for this track. 
+
+The same figure will be used for the \textbf{point estimate accuracy measure} and the \textbf{directional accuracy measure}:
+
+(Eurobase code: prc\_hicp\_midx, COICOP: TOT\_X\_NRG, UNIT: I05).
+
+\paragraph{Track 4: Tourism – number of nights spent at tourist accommodation establishments}
+\label{track_tourism_I551_I553}
+\textbf{ }\\
+(Eurobase code: tour\_occ\_nim, UNIT:NR, NACE\_R2: I551-I553, INDIC\_TO: B006)
+
+The published figures are also available here:
+\url{http://ec.europa.eu/eurostat/tgm/table.do?tab=table&init=1&language=en&pcode=tin00171}
+
+Accommodation statistics are a key part of the system of tourism statistics in the EU and have a long history of data collection. For this track the benchmark will be the official figures on nights spent at tourist accommodation establishments (Nace55.1 + Nace.55.2 + Nace.55.3) by residents and non-residents. A night spent is each night a guest / tourist (resident or non-resident) actually spends (sleeps or stays) or is registered (his/her physical presence there being unnecessary) in a tourist accommodation establishment. 
+
+The release that will be used for evaluation is T + 8 weeks. It is the first available release. 
+
+\textbf{For this track no seasonally adjusted submissions will be needed and the directional evaluation measure will not be applied.}
+
+This is because most countries and Eurostat do not publish seasonally adjusted data so there is no benchmark available.
+Methodological information and information on definitions and classification is available here:
+\newline
+\url{http://ec.europa.eu/eurostat/cache/metadata/en/tour_occ_esms.htm}
+\newline
+\url{http://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32011R0692&from=EN}
+
+For the \textbf{point estimate accuracy measure} the following figure will be used:
+
+(Eurobase code: tour\_occ\_nim, UNIT:NR, NACE\_R2: I551-I553, INDIC\_TO: B006).
+
+Since reliable data is not available continuously for this indicator for several countries, the following restriction applies:
+
+
+\textbf{It will not be possible to choose Ireland, Greece, Luxembourg or the United Kingdom for track 4.}
+
+
+\paragraph{Track 5: Tourism – number of nights spent at hotels and similar accommodation}
+\textbf{ }\\
+(Eurobase code: tour\_occ\_nim, UNIT:NR, NACE\_R2: I551, INDIC\_TO: B006)
+
+This track is similar to Track 4, only it limits it to hotels and similar accommodation (Nace55.1). The data is considered more reliable, particularly the T+8 weeks estimate that will also be used for evaluation here.
+
+\textbf{For this track no seasonally adjusted submissions will be needed and the directional evaluation measure will not be applied.}
+
+
+For the \textbf{point estimate accuracy measure} the following figure will be used:
+
+(Eurobase code: tour\_occ\_nim, UNIT:NR, NACE\_R2: I551, INDIC\_TO: B006).
+
+
+The following restriction applies:
+
+
+\textbf{It will not be possible to choose Ireland, Greece, Luxembourg or the United Kingdom for track 5.}
+
+\paragraph{Track 6: Volume of retail trade}
+\textbf{ }\\
+(Eurobase codes:
+
+ sts\_trtu\_m, INDIC\_BT:TOVT, S\_ADJ:GROSS ,NACE\_R2: G47
+
+and
+
+sts\_trtu\_m, INDIC\_BT:TOVV, S\_ADJ:SWDA ,NACE\_R2: G47
+)
+
+The index of the volume of retail trade is a business indicator which measures the monthly changes of the deflated turnover of retail trade. It is a Principle European Economic Indicator (PEEI). The base year for the index is 2010. 
+
+Overview:
+
+\url{http://ec.europa.eu/eurostat/web/short-term-business-statistics/overview/sts-in-brief}
+
+Methodological information is available here:
+
+\url{http://ec.europa.eu/eurostat/web/short-term-business-statistics/methodology}
+
+The data is officially published in three levels of adjustment:
+
+\begin{itemize}
+\item{gross data;}
+\item{calendar adjusted data;}
+\item{calendar adjusted and seasonally adjusted data.}
+\end{itemize}
+
+
+For this competition gross data for the non-deflated retail trade turnover index 
+
+(sts\_trtu\_m, INDIC\_BT:TOVT, S\_ADJ:GROSS ,NACE\_R2: G47) 
+
+will be used for the \textbf{point estimate accuracy measure}, and calendar adjusted and seasonally adjusted \textbf{deflated} retail trade index  
+
+(sts\_trtu\_m, INDIC\_BT:TOVV, S\_ADJ:SWDA ,NACE\_R2: G47)
+
+ will be used for the \textbf{directional accuracy measure}. For countries where figures are published with two digits after the decimal point we will use a rounding of the official estimate to one digit after the decimal point applying a 'round half up' rounding scheme. For example, according to this scheme 121.45 is rounded to 121.5 and 99.96 is rounded to 100.0.
+
+The first release is around T + 40 days but it is often quite volatile, so for evaluation purposes we will use the second release which comes out at around T + 70 days.
+
+Since gross data are not published for EU and eurozone aggregates, the following restriction applies:
+
+\textbf{It will not be possible to choose EU28 or EA19 for track 6.}
+
+
+\paragraph{Track 7: Volume of retail trade excluding automotive fuel}
+\textbf{ }\\
+(Eurobase codes:
+
+ sts\_trtu\_m, INDIC\_BT:TOVT, S\_ADJ:GROSS ,NACE\_R2: G47\_X\_G473
+
+and
+
+sts\_trtu\_m, INDIC\_BT:TOVV, S\_ADJ:SWDA ,NACE\_R2: G47\_X\_G473
+)
+
+This track is a restriction of the previous one. As automotive fuel is considered a volatile component it is excluded here for the purpose of having a more stable version of the volume of retail trade index. The general information and the links with methodological information from Track 6 apply here as well. 
+
+
+For this competition gross data for the non-deflated retail trade turnover index 
+
+(sts\_trtu\_m, INDIC\_BT:TOVT, S\_ADJ:GROSS ,NACE\_R2: G47\_X\_G473) 
+
+will be used for the \textbf{point estimate accuracy measure}, and calendar adjusted and seasonally adjusted \textbf{deflated} retail trade index  
+
+(sts\_trtu\_m, INDIC\_BT:TOVV, S\_ADJ:SWDA ,NACE\_R2: G47\_X\_G473)
+
+ will be used for the \textbf{directional accuracy measure}.
+
+\textbf{It will not be possible to choose EU28 or EA19 for track 7.}
+
+
+\newpage
+\section{Submission details}
+\label{sec:details}
+
+Due to the varying release rhythm of the different indicators in BDCOMP for each month there will be several deadlines – one per track. The grouping together of the deadlines is called a \textbf{submission round}. Each participant will need to submit estimates for each round that covers indicators for which the participant is competing.
+
+Submissions and registrations should made by sending an email to 
+
+ESTAT-BDCOMP@ec.europa.eu
+
+\textbf{no later than 23:59:59 Coordinated Universal Time (UTC) on the day of the deadline}. Each participant should use the same email address when submitting to the consecutive rounds in order to allow easy identification. In exceptional circumstances a different email address can be used, but a clear identification of the team should be provided so that the series can be reconstructed for evaluation.
+
+The \textbf{subject} of the submission email should read as follows:
+
+BDCOMP submission round XX
+
+where XX is the number of the submission round.
+
+You should include in the \textbf{body} of each submission email a short description of the participant (whether a team or an individual). This should be the same across all submissions so that the series can easily be reconstructed as mentioned above.
+
+You should attach a completed \textbf{submission template}\footnote{Available at \url{http://www.cros-portal.eu/content/bdcomp-submission-template}} to your submission email. The format for the submission template is outlined in the template itself, but an example is given below for completeness.
+
+Density submissions and adjusted estimates\footnote{For some tracks adjsustment means seasonal adjustment, for some it means seasonal and calendar adjustment and some no adjusted estimate is foreseen. You can consult the relevant part of Section~\ref{sec:tasks}.} are optional. If you do not provide a density submission, your submission will not be scored using the likelihood related evaluation measure. 
+
+If you do not provide an adjusted estimate, your submission will not be scored using the directional accuracy related measure.
+
+For index-based indicators such as the HICP and retail trade, the submitted estimate for the point estimate accuracy measure should be a number with precision of one digit after the decimal point. For density estimates there is no requirement on the precision. 
+
+For level-based indicators such as unemployment levels and tourism - nights spent, the submitted estimate should be an integer representing the number forecasted. Often figures are published in thousands, as is the case for unemployment. We do not require submissions to be in exact thousands.
+
+\paragraph{Example (methods, data sources and numbers are meant to serve purely illustrative purposes):}
+
+\textbf{ }\\
+ Participants in some categories would possibly have to submit twice within each submission round. This would be the case, for example, for a participant in 
+
+\begin{itemize}
+ \item{unemployment for SK with two approaches (e.g. approach 1 using a linear model combining web data and social media data without producing an adjusted estimate and approach 2 using a neural network using credit card data where in addition an adjusted estimate is produced)}
+ \item{unemployment for NL with one approach based on neural networks using credit card data}
+ \item{tourism nights spent at hotels and similar accommodation for NL with one approach based on a linear model on credit card data, and}
+ \item{HICP (all items) for DE based on supermarket scanner data.}
+\end{itemize}
+
+This is because HICP has a different deadline from the other indicators in this participant's 'portfolio', as can be seen in the calendar below. 
+
+It would, of course, be possible to submit everything with the earlier deadline, which would mean not using the extra days available for the other indicators. 
+
+Assuming that two submissions are made, the template for the first submission would look approxmiately like this \footnote{The definitive submission format is specified in the submission template.}:
+
+Track 2 (HICP all items):\\
+DE\\
+Approach 1: raw:116.5 mean:116.543 sd:2.937\\
+
+The second submission would look like this:
+
+Track 1 (Unemployment):\\
+SK\\
+Approach 1: raw:312 mean:312 sd:3\\
+Approach 2: raw:305 mean:305 sd:5.2  sa:294\\
+NL\\
+Approach 1: raw:583:2\\
+Track 5 (Tourism — number of nights spent at hotels and similar accommodation):\\
+NL\\
+Approach 1: raw:7452423 mean:7452423 sd:2345\\
+
+
+\paragraph{Registration}
+
+\textbf{ }\\
+Registration is optional but highly advisable since after the registration deadline has passed a separate communication channel will be established between the competition organisers and registered participants.
+The registration email should contain a brief introduction of the participant (team or individual) and if relevant of any institutions represented. Information on planned tasks and approaches will be welcome by the organisers but will not be mandatory. For organisational purposes participants are asked to use the same email address for the registration and for all future communication such as submissions.
+
+\paragraph{Initial submission round}
+
+\textbf{ }\\
+Each participant will be allowed to compete for the tasks and approaches submitted in the initial submission round. \\
+In addition to the requirements for normal submissions the submissions in the initial round must contain a brief description of all the approaches that are being pursued for each track. \\
+There is no official requirement indicating what form the description has to take, but it has to convey at least the general idea. Also, as outlined in Section~\ref{sec:tasks}, each approach has to be applied consistently throughout the competition. \\
+If the participant did not register the initial submission round should also be used for a brief introduction of the participant (team or individual) and if relevant of any institutions represented.
+
+\paragraph{Regular submission round}
+
+\textbf{ }\\
+For subsequent submission rounds, participants will be expected to submit predictions for the same set of indicators, using the same set of approaches as in the initial submission round.  \\
+Extra tasks or approaches in a regular submission will not be evaluated at the end.  \\
+If a regular submission is missing an entry for one task or does not use the approach used in the initial submission, that task or approach will not be scored at the end. \\
+
+\paragraph{Final submission round}
+
+\textbf{ }\\
+The number of rounds varies slightly between the tracks so a submission round may be final for some tracks but not for others. This is done in order to maximize the availability of data points for evaluation while respecting the release schedules of the benchmarks.\\
+The final submission round has to contain the normal input expected for previous submission rounds.\\
+Tracks for which the submission round is final will have to be documented in an attached final report in pdf or MS Word format. The report should contain a description of data sets used, the methods applied and lessons learned.
+
+According to the scoring scheme outlined in Section~\ref{sec:eval} three different (not disjoint) subsets of the submissions will be taken and scored separately - all submissions, reproducible submissions and submissions using big data in a substantive way. It is possible that one submission falls in all the three subsets. 
+
+For approaches where the participant would like to be scored in the list of reproducible submissions the final submission should contain the source code used (in an attachment) and links to the data should be made available.
+
+For approaches where the participant would like to be scored in the list of submissions using big data in a substantive way the claim should be made in the last submission. The decision on whether the approach is indeed using big data in a substantive way will be taken by the evaluating team.
+
+\paragraph{Calendar}
+
+\textbf{ }\\
+
+\begin{longtable}{ | p{3cm} | p{3cm}| p{3cm}| p{3cm}| }
+\hline
+Submission rounds & Track 1 \newline (Unemployment) & Tracks 2 and 3 (HICP) & Tracks 4,5,6,7\newline(Tourism and Retail trade) \\
+\hline
+Round 1&  & &  \\
+Deadline  & 1.2.2016 & 20.1.2016 & 1.2.2016 \\
+Ref. Month& 1.2016 & 1.2016 & 1.2016 \\
+\hline
+Round 2&  & &  \\
+Deadline  & 1.3.2016 & 20.2.2016 & 1.3.2016 \\
+Ref. Month& 2.2016 & 2.2016 & 2.2016 \\
+\hline
+Round 3&  & &  \\
+Deadline  & 1.4.2016 & 20.3.2016 & 1.4.2016 \\
+Ref. Month& 3.2016 & 3.2016 & 3.2016 \\
+\hline
+Round 4&  & &  \\
+Deadline  & 1.5.2016 & 20.4.2016 & 1.5.2016 \\
+Ref. Month& 4.2016 & 4.2016 & 4.2016 \\
+\hline
+Round 5&  & &  \\
+Deadline  & 1.6.2016 & 20.5.2016 & 1.6.2016 \\
+Ref. Month& 5.2016 & 5.2016 & 5.2016 \\
+\hline
+Round 6&  & &  \\
+Deadline  & 1.7.2016 & 20.6.2016 & 1.7.2016 \\
+Ref. Month& 6.2016 & 6.2016 & 6.2016 \\
+\hline
+Round 7&  & &  \\
+Deadline  & 1.8.2016 & 20.7.2016 & 1.8.2016 \\
+Ref. Month& 7.2016 & 7.2016 & 7.2016 \\
+\hline
+Round 8&  & &  \\
+Deadline  & 1.9.2016 & 20.8.2016 & 1.9.2016 \\
+Ref. Month& 8.2016 & 8.2016 & 8.2016 \\
+\hline
+Round 9&  & &  \\
+Deadline  & 1.10.2016 & 20.9.2016 & 1.10.2016 \\
+Ref. Month& 9.2016 & 9.2016 & 9.2016 \\
+\hline
+Round 10&  & &  \\
+Deadline  & 1.11.2016 & 20.10.2016 & 1.11.2016 \\
+Ref. Month& 10.2016 & 10.2016 & 10.2016 \\
+\hline
+Round 11&  & &  \\
+Deadline  & 1.12.2016 & 20.11.2016 & 1.12.2016 \\
+Ref. Month& 11.2016 & 11.2016 & 11.2016\newline (final round) \\
+\hline
+Round 12&  & &  \\
+Deadline  & 1.1.2017 & 20.12.2016 &  \\
+Ref. Month& 12.2016\newline (final round) & 12.2016\newline (final round) &  \\
+\hline
+\end{longtable}
+
+\newpage
+\section{Evaluation}
+\label{sec:eval}
+Official statistical releases are the gold standard against which submissions will be scored. The relevant releases are outlined in Section~\ref{sec:tasks}.
+
+If a release in the normal evaluation scheme (as outlined in the relevant parts of Section~\ref{sec:tasks}) is published with one or more flags \footnote{Possible flags can be: b (break in time series), e (estimated), s (Eurostat estimate), f (forecast), p (provisional), u (low reliability), d (definition differs) and i (phased out).} or if Eurostat has issued a reservation, the release will still be used for the evaluation as it is and further revisions to the figure will not be taken into account. 
+
+If no figure is released (e.g. for confidentiality reasons), the first subsequent release will be used for evaluation if it comes before the beginning of the period earmarked for evaluation. If no figure becomes available before the beginning of this period, the series used for evaluation will be shortened for the country concerned.
+
+The competition is thus effectively a competition for coherence with official statistics. The methodologies for producing the relevant indicators can be found on the web sites of the respective national statistical office or on the Eurostat web site. Links are provided in the relevant parts of Section~\ref{sec:tasks}).
+
+\textbf{The evaluation will be performed within the month following the last submission deadline.}
+
+There will be three evaluation measures used. For the description of the three measures the following notation will be used:
+\begin{itemize}
+\item{$N$ will denote the number of points used for evaluation (usually equalling the number of submission rounds relevant for the indicator)}
+\item{$F_i$ will denote the submitted point estimate for the $i$-th month}
+\item{$SD_i$ will denote the (optional) submitted standard deviation for the $i$-th month}
+\item{$SF_i$ will denote the (optional) submitted adjusted estimate for the $i$-th month}
+\end{itemize}
+while
+\begin{itemize}
+\item{$R_i$ will denote the non-adjusted official release of the relevant indicator for the $i$-th month. For tracks 2,3,6 and 7 this will be rounded to one digit after the decimal point as outlined in the relevant parts of Section~\ref{sec:tasks}}.
+\item{$P_i=f_i(d_i)$ where $f_i$ is the probability density function of a random variable $\xi_i$ with $\xi_i \sim \mathcal{N}(m_i,{\sigma_i}^2)$. Depending on the track the parameters $m_i$, $\sigma_i$ and $d_i$ are defined as follows: 
+    \begin{itemize}
+    \item{For tracks 1,4 and 5: $m_i = 1$, $\sigma_i = SD_i/F_i$ and $d_i=Z_i\times(SD_i/F_i) +1$ where $Z_i$ is the standard score ($Z$-score) of $R_i$ with respect to a normal distribution with mean $F_i$ and standard deviation $SD_i$.}
+    \item{For tracks 2,3,6 and 7: $m_i= F_i$, $\sigma_i=SD_i$ and $d_i=R_i$.}
+    \end{itemize}
+} 
+We will call $P_i$ the modified likelihood of the submitted parameters $F_i$ and $SD_i$ given the outcome $R_i$\footnote{In fact the modification is trivial for tracks 2,3,6, and 7 - in those cases $P_i$ is the actual likelihood.}\footnote{This treatment is done in order to satisfy two goals: 1 - to avoid punishing participants who compete for countries where the mean is larger (assuming that the standard deviation is proportional to the mean), 2- not to encourage participants to submit very large standard deviations.}.
+ 
+\item{$S_i$ will denote the official adjusted estimate for the $i$-th month\footnote{Check the relevant parts of Section~\ref{sec:tasks} for the actual series and adjustments depending on the track.}}
+\end{itemize}
+
+\paragraph{Point estimate accuracy measure}
+\textbf{ }\\
+For this measure the Relative mean squared error(RMSE) will be used. The following formula will be applied:
+$$RMSE=1/N \times \Sigma_{i=1}^N ((F_i - R_i)/R_i)^2.$$
+
+Submissions with lower RMSE will be scored higher.
+\paragraph{Density estimate likelihood measure}
+\textbf{ }\\
+
+The evaluation will be made under the assumption that the errors are independent and normally distributed. Under this assumption the modified likelihood for the vector of all submission rounds will be $\Pi_{i=1}^N P_i$. The measure itself will be the N-th root:
+
+$$L={(\Pi_{i=1}^N P_i)}^{(1/N)}.$$
+
+Submissions with higher values of $L$ will be scored higher.
+
+\paragraph{Directional accuracy}
+\textbf{ }\\
+
+This measure is aimed at evaluating how well the submission anticipates the direction of change with respect to the previous period. This will be done on adjusted series. Adjusted submissions will be benchmarked against official seasonally adjusted figures. Participants are encouraged, where relevant, to find out about the official seasonal and/or calendar adjustment methods applied to the indicators for which they are competing.
+
+For any i between 1 and N-1, if $SR_{i+1} - SR_{i}$ and $SF_{i+1} - SF_i$ are both negative, both positive or both equal to 0, the direction has been correctly anticipated. The percentage of all correctly anticipated directions out of all $N-1$ possibilities will be called directional accuracy (DA).
+
+Submissions with higher DA will be scored higher.
+
+\paragraph{Evaluation categorisation}
+\textbf{ }\\
+
+A multi-faceted competition like BDCOMP will not have a single winner, but rather a winner in each measure and each category as described below. For each task and for each evaluation measure the following scoring scheme will be applied:
+\begin{itemize}
+    \item{An overall ranking will be made for all the participants for that task.}
+    \item{A second ranking will be made where only reproducible submissions will be scored.}
+    \item{A third ranking will be made where only submissions using big data in a substantive manner will be scored.}
+\end{itemize}
+
+The degree to which a method is dependent on a big data source is difficult to quantify in a satisfactory manner\footnote{Imagine an algorithm that outputs the weighted average of the numbers A and B where A is obtained by a pure ARIMA type model on the series while B is obtained (in some way) from a big data source. If the weight of A is one hundred time bigger than the weight of B the approach clearly would not qualify as substantive use of big data. Where exactly the boundary lies in this and other cases will always be debatable.}.  For this reason the BDCOMP scientific committee will decide on a case by case basis whether a submission qualifies.
+
+Participants who would like their submission (or at least some of the approaches used) to be considered reproducible are advised to state this explicitly in their final report. The same applies for participants who would like their submission to be considered as using big data in a substantive manner. The final decision on whether the claim is justified will be taken by the BDCOMP scientific committee.
+
+Also for each track several overall rankings will be made where all the tasks within the track will be evaluated together. For example all approaches by all participants who have chosen Track1 regardless of the countries or aggregates will have their relative mean squared errors compared and will be ranked accordingly. This is important because as outlined in Section~\ref{sec:awards} some awards will be given at track level. It is also not completely fair since series for different countries have sometimes different features. Even if efforts have been made to compensate for this (e.g. in defining the evaluation measures) residual effects will remain. In effect this approach is a compromise between the desire for perfect equality of treatment and the desire to have a manageable set of 'winners' for some of the awards.  
+
+\newpage
+\section{Awards}
+\label{sec:awards}
+
+In contrast to other competitions, no monetary prices are awarded in BDCOMP. We hope that the participants have a strong interest in one or more tasks and use the competition as a platform to bring attention to their work and orient themselves about the performance of the methods they are using relative to alternatives. 
+
+All the rankings described in Section~\ref{sec:eval} will be made public on the BDCOMP website \footnote{\url{http://www.cros-portal.eu/content/bdcomp}}. 
+
+The track-level winners with respect to the point estimate accuracy measure for 
+\begin{itemize}
+\item{the ranking including all submissions, and}
+\item{the ranking including submissions with substantive use of big data}
+\end{itemize}
+(a maximum of 14 participants) will be invited to the NTTS 2017 either to deliver a presentation or to present a poster. They will also receive the chance to have a paper published in the NTTS 2017 proceedings. The BDCOMP scientific committee will also strive to help with the publicizing of other interesting work submitted for the competition.
+\end{document}
