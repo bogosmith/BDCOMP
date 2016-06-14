@@ -44,17 +44,17 @@ echo $outfull
 tm="&time=2015M11&time=2015M12&time=2016M01&time=2016M02&time=2016M03&time=2016M04&time=2016M05&time=2016M06&time=2016M07&time=2016M08&time=2016M09&time=2016M10&time=2016M11&time=2016M12"
 
 # Track 1
-wget -O ${outuni}/unem_nsa http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/unicode/en/une_nb_m?age=TOTAL\&sex=T\&s_adj=NSA"$tm"
-wget -O ${outjson}/unem_nsa http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/json/en/une_nb_m?age=TOTAL\&sex=T\&s_adj=NSA"$tm"
-wget -O ${outsdmx}/unem_nsa_compressed http://ec.europa.eu/eurostat/SDMX/diss-web/rest/data/une_nb_m/M.NSA.TOTAL.T.?startPeriod=2015-12-01\&endPeriod=2016-12-31
+wget -O ${outuni}/unem_nsa http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/unicode/en/une_rt_m?unit=THS_PER\&age=TOTAL\&sex=T\&s_adj=NSA"$tm"
+wget -O ${outjson}/unem_nsa http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/json/en/une_rt_m?unit=THS_PER\&age=TOTAL\&sex=T\&s_adj=NSA"$tm"
+wget -O ${outsdmx}/unem_nsa_compressed http://ec.europa.eu/eurostat/SDMX/diss-web/rest/data/une_rt_m/M.NSA.TOTAL.THS_PER.T.?startPeriod=2015-12-01\&endPeriod=2016-12-31
 xmllint --format ${outsdmx}/unem_nsa_compressed --output ${outsdmx}/unem_nsa
 
-wget -O ${outuni}/unem_sa http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/unicode/en/une_nb_m?age=TOTAL\&sex=T\&s_adj=SA\&"$tm"
-wget -O ${outjson}/unem_sa http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/json/en/une_nb_m?age=TOTAL\&sex=T\&s_adj=SA\&"$tm"
-wget -O ${outsdmx}/unem_sa_compressed http://ec.europa.eu/eurostat/SDMX/diss-web/rest/data/une_nb_m/M.SA.TOTAL.T.?startPeriod=2015-12-01\&endPeriod=2016-12-31
+wget -O ${outuni}/unem_sa http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/unicode/en/une_rt_m?unit=THS_PER\&age=TOTAL\&sex=T\&s_adj=SA\&"$tm"
+wget -O ${outjson}/unem_sa http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/json/en/une_rt_m?unit=THS_PER\&age=TOTAL\&sex=T\&s_adj=SA\&"$tm"
+wget -O ${outsdmx}/unem_sa_compressed http://ec.europa.eu/eurostat/SDMX/diss-web/rest/data/une_rt_m/M.SA.TOTAL.THS_PER.T.?startPeriod=2015-12-01\&endPeriod=2016-12-31
 xmllint --format ${outsdmx}/unem_sa_compressed --output ${outsdmx}/unem_sa
 
-
+exit 2
 # Track 2
 wget -O ${outuni}/hicp http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/unicode/en/prc_hicp_midx?coicop=CP00\&unit=I05"$tm"
 wget -O ${outjson}/hicp http://ec.europa.eu/eurostat/wdds/rest/data/v2.1/json/en/prc_hicp_midx?coicop=CP00\&unit=I05"$tm"
