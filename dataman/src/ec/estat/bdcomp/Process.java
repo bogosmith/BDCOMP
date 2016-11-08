@@ -1,11 +1,14 @@
 package ec.estat.bdcomp;
 
+import ec.estat.bdcomp.data.*;
+
 import org.json.*;
 
 import java.io.File;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Vector;
 import java.text.SimpleDateFormat;
 import java.util.StringTokenizer;
 
@@ -23,6 +26,27 @@ public class Process {
 	    }
 	}
 	
+	public static String removeParentheses(String s) {
+		StringBuffer res = new StringBuffer();
+		int parenNesting = 0;
+		for (int i = 0; i<s.length(); i ++) {
+			char c = s.charAt(i);
+			if (c == ('(') ) {					
+				parenNesting += 1;
+				continue;
+			}
+			if (c == (')') ) {					
+				parenNesting -= 1;
+				continue;
+			}
+			
+			if (parenNesting < 1) {
+				res.append(c);
+			}			
+		}
+		return res.toString();
+		
+	}
 	public static void testCalendar(String from, String to) throws Throwable {
 		Date firstPeriod = formatter.parse(from);
 		Date lastPeriod = formatter.parse(to);
@@ -46,10 +70,15 @@ public class Process {
 		/*Date d = new SimpleDateFormat("yyyy-MM-dd").parse("2000-01-01");
 		System.out.println(d);*/
 		//testCalendar("2011-01-12", "2012-02-01");
-		listFilesForFolder(new File(indir));
-
 		
-		
+		//listFilesForFolder(new File(indir));
+		String s = "	EA	Euro area (EA11-2000, EA12-2006, EA13-2007, EA15-2008, EA16-2010, EA17-2013, EA18-2014, EA19)	117.98	117.96	116.25	116.44	117.88	117.93	118.36	118.56	117.9	118	118.46	(:)";
+		String t = removeParentheses(s);
+		System.out.println(t);
+		StringTokenizer tknz = new StringTokenizer(t);
+		while(tknz.hasMoreElements()) {
+			System.out.println(tknz.nextElement());
+		}
 		
 		//File f = new File("");
 		
@@ -58,6 +87,14 @@ public class Process {
 		String n = obj.getString("name");
 		int a = obj.getInt("age");
 		System.out.println(n + " " + a);  // prints "Alice 20"*/
+		
+		/*Indicator i = new HICP();
+		System.out.println(HICP.Countries.values());*/
+		
+		/*Vector<String> v = new Vector<String>();
+		v.add("a");
+		System.out.println(v.contains("a"));*/
+		
 		
 	}
 

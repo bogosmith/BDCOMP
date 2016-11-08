@@ -4,21 +4,35 @@ import ec.estat.bdcomp.data.Series;
 import ec.estat.bdcomp.data.Indicator;
 import ec.estat.bdcomp.BDCOMPException;
 
+import java.util.Date;
 import java.util.Vector;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;;
 
 
-public abstract class FileProcessor {	
-	public abstract Vector<Series> processFile(File file) throws BDCOMPException;	
+public abstract class FileProcessor {
+	protected Indicator i;
 	public FileProcessor(Indicator i){
 		this.i = i;
-	}	
-	private Indicator i;
+	}		
 	
+	public abstract Vector<Series> processFile (File f, Date firstPeriod, Date lastPeriod) throws BDCOMPException;
+	
+	public Vector<Series> processFile(File f) throws BDCOMPException {
+		try {
+			return processFile(f,  new SimpleDateFormat("yyyy-MM-dd").parse("2016-01-01"),  new SimpleDateFormat("yyyy-MM-dd").parse("2016-12-01"));
+		} catch (ParseException p) {
+			throw new BDCOMPException(p);			
+		}
+	}
+	
+
+
 	/*
 	 * Returns the contents of the file as an array of Strings.
 	 * */
