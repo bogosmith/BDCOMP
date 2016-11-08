@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="BDCOMP.makejar" default="makejar" basedir=".">
+	
+    <property name="build.dir"     value="bin"/>
+    <property name="src.dir"       value="src"/>
+    <property name="lib.dir"       value="lib"/>
+    <property name="classes.dir"   value="${build.dir}/classes"/>
+    <property name="jar.dir"       value="${build.dir}/jar"/>
+    <property name="jar.file"      value="${jar.dir}/seraph.jar"/>
+    <property name="manifest.file" value="${jar.dir}/MANIFEST.MF"/>
+
+	
+    <target name="clean">
+        <delete dir="${build.dir}"/>
+    </target>
+	
+	<target name ="build" description="Compile sources">
+		<mkdir dir="${build.dir}"/>
+		<javac srcdir="${src.dir}"
+			         destdir="${build.dir}"
+			         classpath="${lib.dir}\json-20160810.jar"
+			         debug="on"
+			         source="1.7"
+			  />
+	</target>
+	
+	<target name ="rebuild" description="Compile sources">	    
+		<javac srcdir="${src.dir}"
+			         destdir="${build.dir}"
+			         classpath="${lib.dir}"
+			         debug="on"
+			         source="1.7"
+			  />
+	</target>
+	
+	
+  <target name ="makejar" description="Create a jar for the BDCOMP project">
+    <!--jar destfile="BDCOMP.jar" includes="*.class" basedir="bin" update="yes"/-->
+  	<jar destfile="BDCOMP.jar" basedir="${build.dir}" update="yes"/>
+  </target>
+</project>
