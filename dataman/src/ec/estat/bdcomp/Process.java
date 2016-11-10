@@ -1,16 +1,21 @@
 package ec.estat.bdcomp;
 
 import ec.estat.bdcomp.data.*;
+import ec.estat.bdcomp.util.*;
 
 import org.json.*;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Vector;
 import java.text.SimpleDateFormat;
 import java.util.StringTokenizer;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Process {
 	
@@ -72,13 +77,14 @@ public class Process {
 		//testCalendar("2011-01-12", "2012-02-01");
 		
 		//listFilesForFolder(new File(indir));
-		String s = "	EA	Euro area (EA11-2000, EA12-2006, EA13-2007, EA15-2008, EA16-2010, EA17-2013, EA18-2014, EA19)	117.98	117.96	116.25	116.44	117.88	117.93	118.36	118.56	117.9	118	118.46	(:)";
+		
+		/*String s = "	EA	Euro area (EA11-2000, EA12-2006, EA13-2007, EA15-2008, EA16-2010, EA17-2013, EA18-2014, EA19)	117.98	117.96	116.25	116.44	117.88	117.93	118.36	118.56	117.9	118	118.46	(:)";
 		String t = removeParentheses(s);
 		System.out.println(t);
 		StringTokenizer tknz = new StringTokenizer(t);
 		while(tknz.hasMoreElements()) {
 			System.out.println(tknz.nextElement());
-		}
+		}*/
 		
 		//File f = new File("");
 		
@@ -95,6 +101,37 @@ public class Process {
 		v.add("a");
 		System.out.println(v.contains("a"));*/
 		
+		/*HICP h = new HICP(false);
+		UnicodeFileProcessor ufp = new UnicodeFileProcessor(h);
+		File f = new File("Z:\\bdcomp_data\\2016-11-08\\unicode\\hicp");
+		Vector<Series> v = ufp.processFile(f);		
+		Series s1 = v.get(0);
+		Series s2 = v.get(1);
+		System.out.println(Series.mergeSeries(s1, s2));*/
+		
+		
+		/*Process p = new Process();
+		p.dummymethod();*/
+		
+		
+		//System.out.println(s2);
+		
+		UnicodeFileProcessor f = new UnicodeFileProcessor(new HICP(false));
+		File dir = new File("C:\\Users\\kovacbo\\bdcomp\\bdcomp_data\\");
+		Vector<Series> seriesHicp = DirectoryProcessor.processDirectory(dir, f);
+		System.out.println(seriesHicp.get(2));
+
+        /*String line = "2010-09-27";
+	    String pattern = "^\\d\\d\\d\\d-\\d\\d-\\d\\d$";
+        Pattern r = Pattern.compile(pattern);
+        Matcher m = r.matcher(line);
+        System.out.println(m.find());*/
+		
+		
+	}
+	public void dummymethod() {
+		Process p = new Process();
+		if (this.getClass().isInstance(p)) {System.out.println("yes");};
 		
 	}
 

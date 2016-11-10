@@ -17,10 +17,12 @@ import java.text.ParseException;;
 
 public abstract class FileProcessor {
 	protected Indicator i;
+	
 	public FileProcessor(Indicator i){
 		this.i = i;
 	}		
 	
+	public abstract String getDirName();
 	public abstract Vector<Series> processFile (File f, Date firstPeriod, Date lastPeriod) throws BDCOMPException;
 	
 	public Vector<Series> processFile(File f) throws BDCOMPException {
@@ -30,8 +32,6 @@ public abstract class FileProcessor {
 			throw new BDCOMPException(p);			
 		}
 	}
-	
-
 
 	/*
 	 * Returns the contents of the file as an array of Strings.

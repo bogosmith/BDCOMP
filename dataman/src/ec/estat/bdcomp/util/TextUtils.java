@@ -1,6 +1,9 @@
 package ec.estat.bdcomp.util;
 
-public class TextUtil {
+import ec.estat.bdcomp.BDCOMPException;
+import ec.estat.bdcomp.data.Series;
+
+public class TextUtils {
 	public static String removeParentheses(String s) {
 		StringBuffer res = new StringBuffer();
 		int parenNesting = 0;
@@ -33,6 +36,22 @@ public class TextUtil {
 	    return false;  
 	  }  
 	  return true;  
+	}
+	
+	public static Series.Country stringToCountry(String s) throws BDCOMPException {
+		for (Series.Country c : Series.Country.values()) {
+		    if (c.name().equals(s)) {
+		         return c;
+		    }
+		    
+	    }	
+		if (s.equals("EU28")) {
+	    	return Series.Country.EU;
+	    }
+	    if (s.equals("EA19")) {
+	    	return Series.Country.EA;
+	    }
+	    throw new BDCOMPException("Country can't be matched.");
 	}
 
 }
