@@ -120,6 +120,7 @@ public class Process {
 		File dir = new File("C:\\Users\\kovacbo\\bdcomp\\bdcomp_data\\");
 		Vector<Series> seriesHicp = DirectoryProcessor.processDirectory(dir, f);
 		System.out.println(seriesHicp.get(2));
+		System.out.println(f.getIndicator());
 
         /*String line = "2010-09-27";
 	    String pattern = "^\\d\\d\\d\\d-\\d\\d-\\d\\d$";

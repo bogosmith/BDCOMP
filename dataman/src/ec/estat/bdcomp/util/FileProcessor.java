@@ -33,6 +33,10 @@ public abstract class FileProcessor {
 		}
 	}
 
+	
+	public Indicator getIndicator() {
+		return i;
+	}
 	/*
 	 * Returns the contents of the file as an array of Strings.
 	 * */

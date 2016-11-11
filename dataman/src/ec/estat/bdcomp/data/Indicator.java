@@ -19,10 +19,11 @@ public abstract class Indicator {
 	//the filename that the crawler uses to save this type of indicator
 	public abstract String getFilename();
 	public abstract Vector<String> getCountryAbbreviations();
-	public abstract String toString();
+	//public abstract String toString();
+	public String toString() {return (this.getClass().getName() + " " + this.p + " " + (this.sa?" seasonally adjusted ":"non seasonally adjusted ") + " " + this.t); }
 	
-	public boolean equals(Indicator j) { return (this.getClass().isInstance(j));};
-		
+	public boolean equals(Indicator j) { return (this.getClass().isInstance(j));};	
+	
 	protected Periodicity p;
 	protected Type t;
 	protected SimpleDateFormat formatter;

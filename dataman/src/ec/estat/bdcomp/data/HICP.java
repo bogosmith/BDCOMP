@@ -18,9 +18,9 @@ public class HICP extends Indicator {
 		return "hicp";	
 	}
 	
-	public String toString() {
-		return "HICP " + this.p + " " + (this.sa?" seasonally adjusted ":"non seasonally adjusted ") + " " + this.t; 
-	}
+//	public String toString() {
+//		return "HICP " + this.p + " " + (this.sa?" seasonally adjusted ":"non seasonally adjusted ") + " " + this.t; 
+//	}
 	
 	public Vector<String> getCountryAbbreviations() {
 		String[] s = new String[]{"AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "El", "HU", "IE", "IT", "LV", "LT", "LU", "MT", "NL", "PL", "PT", "RO", "SK", "SI", "SP", "SE", "UK", "EA", "EU"};
