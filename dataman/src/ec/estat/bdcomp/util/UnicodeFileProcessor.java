@@ -41,12 +41,16 @@ public class UnicodeFileProcessor extends FileProcessor {
 			String country = toks.get(0);
 			if (countries.contains(country)) {
 				LinkedList<Double> values = new LinkedList<Double>();
-				Series s = new Series(firstPeriod, lastPeriod, i, TextUtils.stringToCountry(country));
+				Series s = new Series(firstPeriod, lastPeriod, i, TextUtils.stringToCountry(country));				
 				for (int i = toks.size() - 1; i > 0; i --) {					
 					if(TextUtils.isNumeric(toks.get(i))) {
 						values.add(0, Double.parseDouble(toks.get(i)));
 					}					
 				}
+				// the first two periods are from 2015
+				values.poll();
+				values.poll();
+				
 				s.setSeries(new Vector<Double>(values));
 				res.add(s);				
 			}			

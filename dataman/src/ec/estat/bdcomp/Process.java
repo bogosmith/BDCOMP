@@ -4,18 +4,27 @@ import ec.estat.bdcomp.data.*;
 import ec.estat.bdcomp.util.*;
 
 import org.json.*;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.xml.sax.SAXException;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.NamedNodeMap;
 
 import java.io.File;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.LinkedList;
 import java.util.Vector;
+import java.util.HashMap;
 import java.text.SimpleDateFormat;
 import java.util.StringTokenizer;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 public class Process {
 	
@@ -102,12 +111,52 @@ public class Process {
 		System.out.println(v.contains("a"));*/
 		
 		/*HICP h = new HICP(false);
-		UnicodeFileProcessor ufp = new UnicodeFileProcessor(h);
-		File f = new File("Z:\\bdcomp_data\\2016-11-08\\unicode\\hicp");
+		//UnicodeFileProcessor ufp = new UnicodeFileProcessor(h);
+		SDMXFileProcessor ufp = new SDMXFileProcessor(h);
+		//File f = new File("Z:\\bdcomp_data\\2016-11-08\\unicode\\hicp");
+		File f = new File("Z:\\bdcomp_data\\2016-11-08\\sdmx\\hicp");
+		
 		Vector<Series> v = ufp.processFile(f);		
 		Series s1 = v.get(0);
 		Series s2 = v.get(1);
-		System.out.println(Series.mergeSeries(s1, s2));*/
+		System.out.println(Series.mergeSeries(s1, s2));
+		*/
+		
+		/*
+		SDMXFileProcessor ufp = new SDMXFileProcessor(new HICP(false));
+		File f = new File("Z:\\bdcomp_data\\2016-11-08\\sdmx\\hicp");
+		DocumentBuilderFactory df = DocumentBuilderFactory.newInstance();		
+		DocumentBuilder db = df.newDocumentBuilder();
+		
+		Document doc = db.parse(f);
+		Node dataSetNode = doc.getChildNodes().item(0).getChildNodes().item(3);	
+		for (int i = 0; i < dataSetNode.getChildNodes().getLength(); i++ ) {
+			Node next = dataSetNode.getChildNodes().item(i);
+			if (next.getNodeName().equals("generic:Series")) {
+				Node seriesKey = next.getFirstChild().getNextSibling();
+				NodeList children = seriesKey.getChildNodes();
+				for (int j = 0 ; j< children.getLength(); j ++) {
+					Node n2 = children.item(j);					
+					NamedNodeMap attr = n2.getAttributes();
+					if (attr == null) {
+						continue;
+					}
+					Node id = attr.getNamedItem("id");
+					System.out.println(id.getFirstChild().getTextContent());
+					
+				}
+				
+				
+			}
+		}
+		*/
+		
+		
+		/*
+		HashMap<String, Integer> h = new HashMap<String,Integer>();
+		fillMap(h);
+		System.out.println(h.get(new SimpleDateFormat("yyyy-MM").parse("2000-01-01").toString()));
+		*/
 		
 		
 		/*Process p = new Process();
@@ -116,12 +165,30 @@ public class Process {
 		
 		//System.out.println(s2);
 		
-		UnicodeFileProcessor f = new UnicodeFileProcessor(new HICP(false));
+		
+		//UnicodeFileProcessor f = new UnicodeFileProcessor(new HICP(false));
+		SDMXFileProcessor f = new SDMXFileProcessor(new HICP(false));
+		//UnicodeFileProcessor f = new UnicodeFileProcessor(new Retail(false));
 		File dir = new File("C:\\Users\\kovacbo\\bdcomp\\bdcomp_data\\");
 		Vector<Series> seriesHicp = DirectoryProcessor.processDirectory(dir, f);
-		System.out.println(seriesHicp.get(2));
-		System.out.println(f.getIndicator());
-
+		for (int i = 0; i < seriesHicp.size(); i ++ ) {
+			System.out.println(seriesHicp.get(i));
+		}
+		
+		
+		/*LinkedList<Double> values = new LinkedList<Double>();
+		values.add(1.0);
+		values.add(2.0);
+		values.add(3.0);
+		values.poll();
+		values.poll();
+		System.out.println(values);
+		*/
+		
+		//System.out.println(f.getIndicator());
+		
+		
+		
         /*String line = "2010-09-27";
 	    String pattern = "^\\d\\d\\d\\d-\\d\\d-\\d\\d$";
         Pattern r = Pattern.compile(pattern);
@@ -130,6 +197,10 @@ public class Process {
 		
 		
 	}
+	private static void fillMap(HashMap<String,Integer> hm) throws Throwable {
+		hm.put(new SimpleDateFormat("yyyy-MM").parse("2000-01-01").toString(), 134);
+	}
+	
 	public void dummymethod() {
 		Process p = new Process();
 		if (this.getClass().isInstance(p)) {System.out.println("yes");};

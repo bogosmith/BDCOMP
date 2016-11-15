@@ -38,7 +38,7 @@ public class TextUtils {
 	  return true;  
 	}
 	
-	public static Series.Country stringToCountry(String s) throws BDCOMPException {
+	public static Series.Country stringToCountry(String s) throws BDCOMPException {		
 		for (Series.Country c : Series.Country.values()) {
 		    if (c.name().equals(s)) {
 		         return c;

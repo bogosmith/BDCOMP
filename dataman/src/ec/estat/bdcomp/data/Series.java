@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.Vector;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 
 
 public class Series {
@@ -45,6 +46,22 @@ public class Series {
 		assert series.size() == datapoints;	
 		this.series = series;
 	}
+	
+	public void setSeries(HashMap<String,Double> series) {		
+		//assert series.keySet().size() == datapoints;
+		Vector<Double> s = new Vector<Double>();		
+		if (i.getPeriodicity() == Indicator.Periodicity.MONTHLY) {
+			calendar.setTime(firstPeriod);
+			for (int k = 0; k < datapoints-1; k++) {
+				calendar.add(Calendar.MONTH, k);
+				String period = i.formatter.format(calendar.getTime());
+				Double val = series.get(period);
+				s.add((val == null? Double.NaN : val));	
+				calendar.setTime(firstPeriod);
+			}			
+		}
+		setSeries(s);		
+	}
 
 	public Series(Date firstPeriod, Date lastPeriod, Indicator i, Country c) {		
 		this.firstPeriod = firstPeriod;
@@ -74,7 +91,7 @@ public class Series {
 		return firstPeriod;
 	}
 
-	public String toString(){
+	public String toString() {
 		StringBuffer res = new StringBuffer();
 		if (i.getPeriodicity() == Indicator.Periodicity.MONTHLY) {
 			calendar.setTime(firstPeriod);
@@ -146,8 +163,10 @@ public class Series {
 		// !! This is masking problems with missing data
 		if (newSet.size() == 0) { return oldSet;} 
 		if (oldSet.size() != newSet.size()) {
+			//System.out.println(oldSet.size() + " " + newSet.size());
 			throw new BDCOMPException("Attempting to merge sets of series where the sets have different number of member series.");
 		}
+		//System.out.println(oldSet.size() + " " + newSet.size());
 		Vector<Series> res = new Vector<Series>();
 		for (Series s : oldSet) {
 			for (Series t: newSet) {
