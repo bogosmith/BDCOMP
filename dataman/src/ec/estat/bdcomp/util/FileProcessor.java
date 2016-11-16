@@ -40,7 +40,7 @@ public abstract class FileProcessor {
 	/*
 	 * Returns the contents of the file as an array of Strings.
 	 * */
-	public static String[] getContents(File f) throws BDCOMPException {
+	public static String[] getContentInLines(File f) throws BDCOMPException {
 		BufferedReader br = null;
 		try {
 			br = new BufferedReader(new FileReader(f));		
@@ -53,6 +53,36 @@ public abstract class FileProcessor {
 		    }
 		    br.close();
 		    return (lines.toArray(new String[lines.size()]));		    
+		}
+		catch (FileNotFoundException e) {
+			BDCOMPException ex = new BDCOMPException(e);
+			throw ex;
+		}
+		catch (IOException e) {
+			try {
+				br.close();
+			} catch (IOException inner_e) {
+				BDCOMPException ex = new BDCOMPException(inner_e);
+				throw ex;
+			}
+			BDCOMPException ex = new BDCOMPException(e);			
+			throw ex;
+		}	
+	}
+	
+	public static String getContents(File f) throws BDCOMPException {
+		BufferedReader br = null;
+		StringBuffer res = new StringBuffer();
+		try {
+			br = new BufferedReader(new FileReader(f));		    
+		    String line = br.readLine().trim();		    
+
+		    while (line != null) {
+		    	res.append(line);	        
+		        line = br.readLine().trim();
+		    }
+		    br.close();
+		    return (br.toString());		    
 		}
 		catch (FileNotFoundException e) {
 			BDCOMPException ex = new BDCOMPException(e);

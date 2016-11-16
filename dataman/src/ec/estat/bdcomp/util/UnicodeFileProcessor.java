@@ -25,7 +25,7 @@ public class UnicodeFileProcessor extends FileProcessor {
 
 	
 	public Vector<Series> processFile(File f, Date firstPeriod, Date lastPeriod) throws BDCOMPException {
-		String[] contents = getContents(f);
+		String[] contents = getContentInLines(f);
 		Vector<String> countries = this.i.getCountryAbbreviations();
 		Vector<Series> res = new Vector<Series>();
 		for (String l: contents) {

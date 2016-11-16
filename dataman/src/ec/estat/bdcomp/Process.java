@@ -26,6 +26,8 @@ import java.util.regex.Pattern;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.json.JSONObject;
+
 public class Process {
 	
 	private static SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -165,7 +167,7 @@ public class Process {
 		
 		//System.out.println(s2);
 		
-		
+		/*
 		//UnicodeFileProcessor f = new UnicodeFileProcessor(new HICP(false));
 		SDMXFileProcessor f = new SDMXFileProcessor(new HICP(false));
 		//UnicodeFileProcessor f = new UnicodeFileProcessor(new Retail(false));
@@ -174,6 +176,10 @@ public class Process {
 		for (int i = 0; i < seriesHicp.size(); i ++ ) {
 			System.out.println(seriesHicp.get(i));
 		}
+		*/
+		JSONObject obj = new JSONObject(" { \"firstName\": \"John\",  \"lastName\": \"Smith\",  \"age\": 25,   \"address\": { \"streetAddress\": \"21 2nd Street\",\"city\": \"New York\",  \"state\": \"NY\",  \"postalCode\": 10021  }, \"phoneNumbers\": [   {   \"type\": \"home\",  \"number\": \"212 555-1234\"   },  {  \"type\": \"fax\",  \"number\": \"646 555-4567\"  }]}");
+		String pageName = obj.getJSONObject("address").getString("streetAddress");
+		System.out.println(pageName);
 		
 		
 		/*LinkedList<Double> values = new LinkedList<Double>();
