@@ -10,7 +10,9 @@ import org.xml.sax.SAXException;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.NamedNodeMap;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -74,6 +76,20 @@ public class Process {
 		int diffYear = endCalendar.get(Calendar.YEAR) - startCalendar.get(Calendar.YEAR);
 		int diffMonth = diffYear * 12 + endCalendar.get(Calendar.MONTH) - startCalendar.get(Calendar.MONTH);
 		System.out.println(diffMonth);	
+		
+	}
+	
+	private static String readFile(String path) throws Throwable {
+		BufferedReader br = null;
+		StringBuffer res = new StringBuffer();		
+		br = new BufferedReader(new FileReader(new File(path)));		    
+		String line = br.readLine();		    
+        while (line != null) {
+	     	res.append(line.trim());	        
+		    line = br.readLine();
+		}
+		br.close();
+		return (res.toString());	
 		
 	}
 
@@ -167,19 +183,34 @@ public class Process {
 		
 		//System.out.println(s2);
 		
+		
 		/*
-		//UnicodeFileProcessor f = new UnicodeFileProcessor(new HICP(false));
-		SDMXFileProcessor f = new SDMXFileProcessor(new HICP(false));
+		UnicodeFileProcessor f1 = new UnicodeFileProcessor(new HICP(false));
+		SDMXFileProcessor f2 = new SDMXFileProcessor(new HICP(false));
 		//UnicodeFileProcessor f = new UnicodeFileProcessor(new Retail(false));
-		File dir = new File("C:\\Users\\kovacbo\\bdcomp\\bdcomp_data\\");
-		Vector<Series> seriesHicp = DirectoryProcessor.processDirectory(dir, f);
+		File dir = new File("C:\\Users\\kovacbo\\bdcomp\\bdcomp_data\\");		
+		Vector<FileProcessor> processors = new Vector<FileProcessor>();
+		processors.add(f1);
+		processors.add(f2);
+		Vector<Series> seriesHicp = DirectoryProcessor.processDirectory(dir, processors);
 		for (int i = 0; i < seriesHicp.size(); i ++ ) {
 			System.out.println(seriesHicp.get(i));
 		}
 		*/
+		
+		/*
 		JSONObject obj = new JSONObject(" { \"firstName\": \"John\",  \"lastName\": \"Smith\",  \"age\": 25,   \"address\": { \"streetAddress\": \"21 2nd Street\",\"city\": \"New York\",  \"state\": \"NY\",  \"postalCode\": 10021  }, \"phoneNumbers\": [   {   \"type\": \"home\",  \"number\": \"212 555-1234\"   },  {  \"type\": \"fax\",  \"number\": \"646 555-4567\"  }]}");
 		String pageName = obj.getJSONObject("address").getString("streetAddress");
 		System.out.println(pageName);
+		*/
+		
+		String jsonString = readFile("C:\\Users\\kovacbo\\bdcomp\\bdcomp_data\\2016-11-10\\json\\hicp");
+		//System.out.println(jsonString);
+		JSONObject obj = new JSONObject(jsonString);
+		
+		JSONObject index = obj.getJSONObject("dimension").getJSONObject("geo").getJSONObject("category").getJSONObject("index");
+		System.out.println(index.keySet());
+		System.out.println(index.get("UK"));
 		
 		
 		/*LinkedList<Double> values = new LinkedList<Double>();

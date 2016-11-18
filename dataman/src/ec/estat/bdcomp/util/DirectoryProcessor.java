@@ -42,6 +42,39 @@ public class DirectoryProcessor {
 		return res;
 	}
 	
+	// process using all the processors in order. Signals any discrepancies.
+	public static Vector<Series> processDirectory(File dir, Vector<FileProcessor> processors) throws BDCOMPException {
+		Vector<Series> res = new Vector<Series>();
+		File[] filesList = filter(dir.listFiles());
+		Arrays.sort(filesList);
+		for (File subdir : filesList) {
+			System.out.println(subdir.getName());
+			Vector<Series> s = null;
+			for (FileProcessor proc : processors) {
+				File properDir = chooseFormat(subdir, proc);
+				File dataFile = null;
+				try {
+					dataFile = chooseFileForIndicator(properDir, proc);
+				} catch (BDCOMPException ex) {
+					//!! This is masking problems with missing data
+					continue;
+				}			
+				Vector<Series> s1 = proc.processFile(dataFile);
+				if (s == null) {s = s1;} else { if (!s1.equals(s)) {throw new BDCOMPException("Different series.");}}
+				
+				if (res.size() == 0) {
+					res = s;
+				} else {				
+					res = Series.mergeSetsOfSeries(res, s);
+				}
+			}
+			
+		}
+		return res;
+	}
+	
+	
+	
 	private static File[] filter(File[] filesList) {
 		Vector<File> res = new Vector<File>();
 		for (int i = 0; i < filesList.length; i++) {

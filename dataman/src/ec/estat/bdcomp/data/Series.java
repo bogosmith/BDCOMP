@@ -90,6 +90,28 @@ public class Series {
 	public Date getFirstPeriod() {
 		return firstPeriod;
 	}
+	
+	public static boolean compareSetsOfSeries(Vector<Series> set1, Vector<Series> set2) throw BDCOMPException {
+		if(set1.size() != set2.size()) {throw new BDCOMPException("Trying to compare sets of series of different sizes.");}
+		for (Series s: set1) {
+			
+			
+		}
+		
+		
+	}
+	
+	public boolean equals(Series s1) throws BDCOMPException {
+		checkConsistency(this, s1);
+		Vector<Double> d1 = this.getSeries();
+		Vector<Double> d2 = s1.getSeries();
+		for (int i = 0; i < d1.size(); i ++) {
+			if (d1.get(i) != d2.get(i) ){
+				return false;
+			}
+		}
+		return true;
+	}
 
 	public String toString() {
 		StringBuffer res = new StringBuffer();
