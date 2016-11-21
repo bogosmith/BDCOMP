@@ -91,14 +91,14 @@ public class Series {
 		return firstPeriod;
 	}
 	
-	public static boolean compareSetsOfSeries(Vector<Series> set1, Vector<Series> set2) throw BDCOMPException {
+	public static boolean compareSetsOfSeries(Vector<Series> set1, Vector<Series> set2) throws BDCOMPException {
 		if(set1.size() != set2.size()) {throw new BDCOMPException("Trying to compare sets of series of different sizes.");}
 		for (Series s: set1) {
 			
 			
 		}
 		
-		
+		throw new BDCOMPException("Not implemented.");
 	}
 	
 	public boolean equals(Series s1) throws BDCOMPException {

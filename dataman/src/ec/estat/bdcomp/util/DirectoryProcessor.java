@@ -27,17 +27,16 @@ public class DirectoryProcessor {
 			File dataFile = null;
 			try {
 				dataFile = chooseFileForIndicator(properDir, processor);
+				Vector<Series> s = processor.processFile(dataFile);
+				if (res.size() == 0) {
+					res = s;
+				} else {				
+					res = Series.mergeSetsOfSeries(res, s);
+				}
 			} catch (BDCOMPException ex) {
 				//!! This is masking problems with missing data
 				continue;
 			}			
-			Vector<Series> s = processor.processFile(dataFile);
-			if (res.size() == 0) {
-				res = s;
-			} else {				
-				res = Series.mergeSetsOfSeries(res, s);
-			}
-			
 		}
 		return res;
 	}

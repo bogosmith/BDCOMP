@@ -184,19 +184,23 @@ public class Process {
 		//System.out.println(s2);
 		
 		
-		/*
-		UnicodeFileProcessor f1 = new UnicodeFileProcessor(new HICP(false));
-		SDMXFileProcessor f2 = new SDMXFileProcessor(new HICP(false));
+		//System.out.println(new SimpleDateFormat("yyyy-MM").parse("2015M11").toString());
+		HICP ix = new HICP(false);
+		UnicodeFileProcessor f1 = new UnicodeFileProcessor(ix);
+		SDMXFileProcessor f2 = new SDMXFileProcessor(ix);
+		JSONFileProcessor f3 = new JSONFileProcessor(ix);
+		ix.getFormatter().parse("2015-11");
 		//UnicodeFileProcessor f = new UnicodeFileProcessor(new Retail(false));
 		File dir = new File("C:\\Users\\kovacbo\\bdcomp\\bdcomp_data\\");		
 		Vector<FileProcessor> processors = new Vector<FileProcessor>();
 		processors.add(f1);
 		processors.add(f2);
-		Vector<Series> seriesHicp = DirectoryProcessor.processDirectory(dir, processors);
+		//Vector<Series> seriesHicp = DirectoryProcessor.processDirectory(dir, processors);
+		Vector<Series> seriesHicp = DirectoryProcessor.processDirectory(dir,f2);
 		for (int i = 0; i < seriesHicp.size(); i ++ ) {
 			System.out.println(seriesHicp.get(i));
 		}
-		*/
+		
 		
 		/*
 		JSONObject obj = new JSONObject(" { \"firstName\": \"John\",  \"lastName\": \"Smith\",  \"age\": 25,   \"address\": { \"streetAddress\": \"21 2nd Street\",\"city\": \"New York\",  \"state\": \"NY\",  \"postalCode\": 10021  }, \"phoneNumbers\": [   {   \"type\": \"home\",  \"number\": \"212 555-1234\"   },  {  \"type\": \"fax\",  \"number\": \"646 555-4567\"  }]}");
@@ -204,13 +208,17 @@ public class Process {
 		System.out.println(pageName);
 		*/
 		
-		String jsonString = readFile("C:\\Users\\kovacbo\\bdcomp\\bdcomp_data\\2016-11-10\\json\\hicp");
+		/*
+		String jsonString = readFile("C:\\Users\\kovacbo\\bdcomp\\bdcomp_data\\2016-01-20\\json\\hicp");
 		//System.out.println(jsonString);
 		JSONObject obj = new JSONObject(jsonString);
 		
 		JSONObject index = obj.getJSONObject("dimension").getJSONObject("geo").getJSONObject("category").getJSONObject("index");
 		System.out.println(index.keySet());
 		System.out.println(index.get("UK"));
+		JSONObject values = obj.getJSONObject("value");
+		System.out.println(values.get("1"));
+		*/
 		
 		
 		/*LinkedList<Double> values = new LinkedList<Double>();
