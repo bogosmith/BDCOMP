@@ -53,8 +53,8 @@ public class JSONFileProcessor extends FileProcessor {
 				    	Double val = Double.parseDouble(__s);*/
 				    	String key = Integer.toString(i * periods + j);
 				    	Double val = Double.NaN;
-				    	if ( values.has(key)) {				    		
-				    		val = (Double) values.get(key);
+				    	if ( values.has(key)) {   		
+				    		val = (Double) values.get(key);				    		
 				    	}
 				    	//this.i.getFormatter().parse(invertedTimeIndex.get(Integer.toString(j)))
 				    	String periodString = invertedTimeIndex.get(Integer.toString(j));

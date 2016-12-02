@@ -101,8 +101,15 @@ public class Series {
 		throw new BDCOMPException("Not implemented.");
 	}
 	
-	public boolean equals(Series s1) throws BDCOMPException {
-		checkConsistency(this, s1);
+	public boolean equals(Object o) {
+		
+		if (! (o instanceof Series)) {return false;};
+		Series s1 = (Series) o;
+		try {
+			checkConsistency(this, s1);
+		} catch (BDCOMPException ex) {
+			throw new RuntimeException(ex);
+		}		
 		Vector<Double> d1 = this.getSeries();
 		Vector<Double> d2 = s1.getSeries();
 		for (int i = 0; i < d1.size(); i ++) {

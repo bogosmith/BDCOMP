@@ -56,10 +56,11 @@ public class DirectoryProcessor {
 					dataFile = chooseFileForIndicator(properDir, proc);
 				} catch (BDCOMPException ex) {
 					//!! This is masking problems with missing data
-					continue;
+					//continue;
+					throw ex;					
 				}			
-				Vector<Series> s1 = proc.processFile(dataFile);
-				if (s == null) {s = s1;} else { if (!s1.equals(s)) {throw new BDCOMPException("Different series.");}}
+				Vector<Series> s1 = proc.processFile(dataFile);				
+				if (s == null) {s = s1;} else { if (!s1.equals(s)) {throw new BDCOMPException("Different series."); }}
 				
 				if (res.size() == 0) {
 					res = s;
@@ -74,7 +75,7 @@ public class DirectoryProcessor {
 	
 	
 	
-	private static File[] filter(File[] filesList) {
+	private static File[] filter(File[] filesList) {		
 		Vector<File> res = new Vector<File>();
 		for (int i = 0; i < filesList.length; i++) {
 			Matcher m = r.matcher(filesList[i].getName());

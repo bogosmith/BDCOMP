@@ -191,12 +191,14 @@ public class Process {
 		JSONFileProcessor f3 = new JSONFileProcessor(ix);
 		ix.getFormatter().parse("2015-11");
 		//UnicodeFileProcessor f = new UnicodeFileProcessor(new Retail(false));
-		File dir = new File("C:\\Users\\kovacbo\\bdcomp\\bdcomp_data\\");		
+		File dir = new File("H:\\bdcomp\\bdcomp_data\\");		
 		Vector<FileProcessor> processors = new Vector<FileProcessor>();
-		processors.add(f1);
+		//processors.add(f1);
 		processors.add(f2);
-		//Vector<Series> seriesHicp = DirectoryProcessor.processDirectory(dir, processors);
-		Vector<Series> seriesHicp = DirectoryProcessor.processDirectory(dir,f2);
+		processors.add(f3);
+		Vector<Series> seriesHicp = DirectoryProcessor.processDirectory(dir, processors);
+		//Vector<Series> seriesHicp = DirectoryProcessor.processDirectory(dir,f1 );
+		
 		for (int i = 0; i < seriesHicp.size(); i ++ ) {
 			System.out.println(seriesHicp.get(i));
 		}
