@@ -108,12 +108,15 @@ public class Series {
 		try {
 			checkConsistency(this, s1);
 		} catch (BDCOMPException ex) {
-			throw new RuntimeException(ex);
+			//throw new RuntimeException(ex);
+			return false;
 		}		
 		Vector<Double> d1 = this.getSeries();
 		Vector<Double> d2 = s1.getSeries();
 		for (int i = 0; i < d1.size(); i ++) {
-			if (d1.get(i) != d2.get(i) ){
+			Double i1 = d1.get(i);
+			Double i2 = d2.get(i);
+			if (Double.compare(i1, i2) != 0){
 				return false;
 			}
 		}
@@ -162,6 +165,7 @@ public class Series {
 		if (! s1.getFirstPeriod().equals(s2.getFirstPeriod())) {throw new BDCOMPException ("Inconsistent first period of series.");};
 		if (! s1.getLastPeriod().equals(s2.getLastPeriod())) {throw new BDCOMPException ("Inconsistent last period of series.");};
 		if (! s1.getIndicator().equals(s2.getIndicator())) {throw new BDCOMPException ("Inconsistent indicators of series.");};		
+		//System.out.println(s1.getCountry() + "##" + s2.getCountry());
 		if (! s1.getCountry().equals(s2.getCountry())) {throw new BDCOMPException ("Different countries of series.");};
 	}
 	

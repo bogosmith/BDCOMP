@@ -5,6 +5,9 @@ import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.Arrays;
+import java.util.Enumeration;
+import java.util.Set;
+import java.util.HashSet;
 
 import ec.estat.bdcomp.BDCOMPException;
 import ec.estat.bdcomp.data.Series;
@@ -59,8 +62,8 @@ public class DirectoryProcessor {
 					//continue;
 					throw ex;					
 				}			
-				Vector<Series> s1 = proc.processFile(dataFile);				
-				if (s == null) {s = s1;} else { if (!s1.equals(s)) {throw new BDCOMPException("Different series."); }}
+				Vector<Series> s1 = proc.processFile(dataFile);
+				if (s == null) {s = s1;} else {if (!compareVectors(s, s1)){throw new BDCOMPException("Different series.");}}
 				
 				if (res.size() == 0) {
 					res = s;
@@ -74,6 +77,35 @@ public class DirectoryProcessor {
 	}
 	
 	
+	/*
+	 *  This method is necessary since the natural implementation 
+	 *  new HashSet<Series>(a).equals(new HashSet<Series>(b))
+	 *  doesn't work for some reason.
+	 * */
+	
+	private static <T> boolean compareVectors (Vector<T> a, Vector<T> b) {
+		outer:
+		for (Enumeration<T> e = a.elements(); e.hasMoreElements();) {
+			T el = e.nextElement();
+			for (Enumeration<T> f = b.elements(); f.hasMoreElements();) {
+				if (f.nextElement().equals(el)) {
+					continue outer;
+				}
+			}
+			return false;
+		}
+		outer:
+		for (Enumeration<T> e = b.elements(); e.hasMoreElements();) {
+			T el = e.nextElement();
+			for (Enumeration<T> f = a.elements(); f.hasMoreElements();) {
+				if (f.nextElement().equals(el)) {
+					continue outer;
+				}
+			}
+			return false;
+		}
+		return true;
+	}
 	
 	private static File[] filter(File[] filesList) {		
 		Vector<File> res = new Vector<File>();
