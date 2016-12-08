@@ -5,6 +5,7 @@ import ec.estat.bdcomp.BDCOMPException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.Vector;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -62,7 +63,7 @@ public class Series {
 		}
 		setSeries(s);		
 	}
-
+	
 	public Series(Date firstPeriod, Date lastPeriod, Indicator i, Country c) {		
 		this.firstPeriod = firstPeriod;
 		this.lastPeriod = lastPeriod;
@@ -89,6 +90,61 @@ public class Series {
 
 	public Date getFirstPeriod() {
 		return firstPeriod;
+	}
+	
+	public static Vector<Series> choseFromDifferentProcessors(Vector<Series> v1, Vector<Series> v2) throws BDCOMPException {
+		if (v1.size() == 0) {
+			return v2;
+		}
+		if (v2.size() == 0) {
+			return v1;
+		}
+		
+		if(v1.size() != v2.size()) {
+			throw new BDCOMPException("Different sizes of series.");
+		} else {
+			if ( compareVectors(v1, v2)) {
+				return v1;
+			} else {
+				throw new BDCOMPException("Different values of series.");
+			}
+		}
+		
+	}
+	
+	/*
+	 *  This method is necessary since the natural implementation 
+	 *  new HashSet<Series>(a).equals(new HashSet<Series>(b))
+	 *  doesn't work for some reason.
+	 * */
+	
+	private static <T> boolean compareVectors (Vector<T> a, Vector<T> b) {
+		outer:
+		for (Enumeration<T> e = a.elements(); e.hasMoreElements();) {
+			T el = e.nextElement();
+			for (Enumeration<T> f = b.elements(); f.hasMoreElements();) {
+				if (f.nextElement().equals(el)) {
+					continue outer;
+				}				
+			}
+			//System.out.println("AAA");
+			System.out.println(el);
+			//System.out.println(b.size());
+			//System.out.println(a.size());
+			return false;
+		}
+		outer:
+		for (Enumeration<T> e = b.elements(); e.hasMoreElements();) {
+			T el = e.nextElement();
+			for (Enumeration<T> f = a.elements(); f.hasMoreElements();) {
+				if (f.nextElement().equals(el)) {
+					continue outer;
+				}
+			}
+			//System.out.println("BBB");
+			return false;
+		}
+		return true;
 	}
 	
 	public static boolean compareSetsOfSeries(Vector<Series> set1, Vector<Series> set2) throws BDCOMPException {

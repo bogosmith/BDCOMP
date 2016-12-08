@@ -59,15 +59,22 @@ public class DirectoryProcessor {
 					dataFile = chooseFileForIndicator(properDir, proc);
 				} catch (BDCOMPException ex) {
 					//!! This is masking problems with missing data
-					//continue;
-					throw ex;					
+					continue;
+					//throw ex;
+					//s = new Vector<Series>();
 				}			
-				Vector<Series> s1 = proc.processFile(dataFile);
-				if (s == null) {s = s1;} else {if (!compareVectors(s, s1)){throw new BDCOMPException("Different series.");}}
+				Vector<Series> s1 = proc.processFile(dataFile);				
+				if (s == null) {s = s1;} 
+				else {
+					s = Series.choseFromDifferentProcessors(s, s1);
+					/*if (!compareVectors(s, s2)){throw new BDCOMPException("Different series.");}
+					if (!compareVectors(s1, s2)){throw new BDCOMPException("Different series.");}*/
+				
+				}
 				
 				if (res.size() == 0) {
 					res = s;
-				} else {				
+				} else {					
 					res = Series.mergeSetsOfSeries(res, s);
 				}
 			}
@@ -77,35 +84,7 @@ public class DirectoryProcessor {
 	}
 	
 	
-	/*
-	 *  This method is necessary since the natural implementation 
-	 *  new HashSet<Series>(a).equals(new HashSet<Series>(b))
-	 *  doesn't work for some reason.
-	 * */
-	
-	private static <T> boolean compareVectors (Vector<T> a, Vector<T> b) {
-		outer:
-		for (Enumeration<T> e = a.elements(); e.hasMoreElements();) {
-			T el = e.nextElement();
-			for (Enumeration<T> f = b.elements(); f.hasMoreElements();) {
-				if (f.nextElement().equals(el)) {
-					continue outer;
-				}
-			}
-			return false;
-		}
-		outer:
-		for (Enumeration<T> e = b.elements(); e.hasMoreElements();) {
-			T el = e.nextElement();
-			for (Enumeration<T> f = a.elements(); f.hasMoreElements();) {
-				if (f.nextElement().equals(el)) {
-					continue outer;
-				}
-			}
-			return false;
-		}
-		return true;
-	}
+
 	
 	private static File[] filter(File[] filesList) {		
 		Vector<File> res = new Vector<File>();

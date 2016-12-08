@@ -195,12 +195,18 @@ public class Process {
 		JSONFileProcessor f3 = new JSONFileProcessor(ix);
 		ix.getFormatter().parse("2015-11");
 		//UnicodeFileProcessor f = new UnicodeFileProcessor(new Retail(false));
-		File dir = new File("C:\\Users\\Stanislava\\git\\BDCOMP\\data\\");		
+		//File dir = new File("C:\\Users\\Stanislava\\git\\BDCOMP\\data\\");		
+		File dir = new File("H:\\bdcomp\\bdcomp_test_data\\");
 		Vector<FileProcessor> processors = new Vector<FileProcessor>();
 		processors.add(f1);
 		processors.add(f2);
-		//processors.add(f3);
+		processors.add(f3);
 		Vector<Series> seriesHicp = DirectoryProcessor.processDirectory(dir, processors);
+		
+		/*for (Series ser : seriesHicp) {
+			System.out.println(ser);
+		}*/
+		
 		//Vector<Series> seriesHicpUni = DirectoryProcessor.processDirectory(dir,f1 );
 		//Vector<Series> seriesHicpSDMX = DirectoryProcessor.processDirectory(dir,f2 );
 
