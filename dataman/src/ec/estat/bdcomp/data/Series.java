@@ -108,8 +108,7 @@ public class Series {
 			} else {
 				throw new BDCOMPException("Different values of series.");
 			}
-		}
-		
+		}		
 	}
 	
 	/*
@@ -128,9 +127,11 @@ public class Series {
 				}				
 			}
 			//System.out.println("AAA");
-			System.out.println(el);
-			//System.out.println(b.size());
-			//System.out.println(a.size());
+			//System.out.println(el);
+			/*System.out.println(b.size());
+			System.out.println(a.size());*/
+			
+			
 			return false;
 		}
 		outer:
@@ -166,13 +167,16 @@ public class Series {
 		} catch (BDCOMPException ex) {
 			//throw new RuntimeException(ex);
 			return false;
-		}		
+		}
+		
 		Vector<Double> d1 = this.getSeries();
 		Vector<Double> d2 = s1.getSeries();
 		for (int i = 0; i < d1.size(); i ++) {
 			Double i1 = d1.get(i);
 			Double i2 = d2.get(i);
 			if (Double.compare(i1, i2) != 0){
+				System.out.println(o);
+				System.out.println(this);
 				return false;
 			}
 		}
@@ -238,6 +242,12 @@ public class Series {
 			if (oldSeries.get(i).isNaN()) {
 				data.add(newSeries.get(i));
 			} else {
+				// Here one can get notified where revisions take place.
+				if ( Double.compare(newSeries.get(i),oldSeries.get(i)) != 0 ) {
+					//System.out.println(newSeries.getCountry() + " " + i + " " + oldSeries.get(i) + " " + newSeries.get(i));
+					//throw new BDCOMPException("test");
+					//System.out.println(newSeries.getCountry() + " " + i + " " + oldSeries.get(i) + " " + newSeries.get(i));
+				}
 				data.add(oldSeries.get(i));
 			}
 		}
@@ -252,7 +262,7 @@ public class Series {
 		// !! This is masking problems with missing data
 		if (newSet.size() == 0) { return oldSet;} 
 		if (oldSet.size() != newSet.size()) {
-			//System.out.println(oldSet.size() + " " + newSet.size());
+			System.out.println(oldSet.size() + " " + newSet.size());
 			throw new BDCOMPException("Attempting to merge sets of series where the sets have different number of member series.");
 		}
 		//System.out.println(oldSet.size() + " " + newSet.size());

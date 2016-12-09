@@ -72,7 +72,8 @@ public class JSONFileProcessor extends FileProcessor {
 			}
 			return res;
 		} catch (JSONException e) {
-			throw new BDCOMPException(e);
+			//throw new BDCOMPException(e);
+			return new Vector<Series>();
 		}
 	}
 	

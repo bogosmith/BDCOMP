@@ -53,6 +53,7 @@ public class DirectoryProcessor {
 			System.out.println(subdir.getName());
 			Vector<Series> s = null;
 			for (FileProcessor proc : processors) {
+				//System.out.println(proc.getClass().getName());
 				File properDir = chooseFormat(subdir, proc);
 				File dataFile = null;
 				try {
@@ -63,7 +64,8 @@ public class DirectoryProcessor {
 					//throw ex;
 					//s = new Vector<Series>();
 				}			
-				Vector<Series> s1 = proc.processFile(dataFile);				
+				Vector<Series> s1 = proc.processFile(dataFile);		
+				//System.out.println(s1);
 				if (s == null) {s = s1;} 
 				else {
 					s = Series.choseFromDifferentProcessors(s, s1);
