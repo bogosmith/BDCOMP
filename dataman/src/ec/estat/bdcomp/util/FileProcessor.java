@@ -75,14 +75,17 @@ public abstract class FileProcessor {
 		StringBuffer res = new StringBuffer();
 		try {
 			br = new BufferedReader(new FileReader(f));		    
-		    String line = br.readLine().trim();		    
+		    String line = br.readLine();
+		    /*if (line == null) {
+		    	throw new BDCOMPException("Empty input file.");
+		    }*/	    		    
 
 		    while (line != null) {
-		    	res.append(line);	        
-		        line = br.readLine().trim();
+		    	res.append(line.trim());	        
+		        line = br.readLine();
 		    }
 		    br.close();
-		    return (br.toString());		    
+		    return (res.toString());		    
 		}
 		catch (FileNotFoundException e) {
 			BDCOMPException ex = new BDCOMPException(e);

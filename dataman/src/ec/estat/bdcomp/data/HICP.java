@@ -6,7 +6,7 @@ import java.text.SimpleDateFormat;
 
 public class HICP extends Indicator {
 
-	public enum Countries {a, b};
+	//public enum Countries {a, b};
 	public HICP(boolean sa) {
 		this.p = Periodicity.MONTHLY;
 		this.t = Type.INDEX;

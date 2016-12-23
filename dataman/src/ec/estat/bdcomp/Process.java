@@ -18,12 +18,15 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
+import java.util.Set;
 import java.util.Vector;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.text.SimpleDateFormat;
 import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.Enumeration;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -95,10 +98,11 @@ public class Process {
 
 	
 	public static void main (String[] args) throws Throwable {
-		String indir = args[0];
+		/*String indir = args[0];
 		String outdir = args[1];
 		System.out.println(indir);
 		System.out.println(outdir);
+		*/
 		/*Date d = new SimpleDateFormat("yyyy-MM-dd").parse("2000-01-01");
 		System.out.println(d);*/
 		//testCalendar("2011-01-12", "2012-02-01");
@@ -184,19 +188,53 @@ public class Process {
 		//System.out.println(s2);
 		
 		
-		/*
-		UnicodeFileProcessor f1 = new UnicodeFileProcessor(new HICP(false));
-		SDMXFileProcessor f2 = new SDMXFileProcessor(new HICP(false));
+		//System.out.println(new SimpleDateFormat("yyyy-MM").parse("2015M11").toString());
+		HICP ix = new HICP(false);
+		//HICPExclEnergy ix = new HICPExclEnergy(false);
+		UnicodeFileProcessor f1 = new UnicodeFileProcessor(ix);
+		SDMXFileProcessor f2 = new SDMXFileProcessor(ix);
+		JSONFileProcessor f3 = new JSONFileProcessor(ix);
+		ix.getFormatter().parse("2015-11");
 		//UnicodeFileProcessor f = new UnicodeFileProcessor(new Retail(false));
-		File dir = new File("C:\\Users\\kovacbo\\bdcomp\\bdcomp_data\\");		
+		//File dir = new File("C:\\Users\\Stanislava\\git\\BDCOMP\\data\\");		
+		File dir = new File("H:\\bdcomp\\bdcomp_data\\");
 		Vector<FileProcessor> processors = new Vector<FileProcessor>();
-		processors.add(f1);
+		//processors.add(f1);
 		processors.add(f2);
+		processors.add(f3);
 		Vector<Series> seriesHicp = DirectoryProcessor.processDirectory(dir, processors);
-		for (int i = 0; i < seriesHicp.size(); i ++ ) {
-			System.out.println(seriesHicp.get(i));
+		
+		for (Series ser : seriesHicp) {
+			System.out.println(ser);
 		}
+		
+		//Vector<Series> seriesHicpUni = DirectoryProcessor.processDirectory(dir,f1 );
+		//Vector<Series> seriesHicpSDMX = DirectoryProcessor.processDirectory(dir,f2 );
+
+		
+		//System.out.println(new HashSet<Series>(seriesHicpUni).equals(new HashSet<Series>(seriesHicpSDMX)));
+		
+		//System.out.println(compareVectors(seriesHicpUni, seriesHicpSDMX));
+		
+		/*String s1 = "a";
+		String t1 = "a";
+		String s2 = "b";
+		String t2 = "b";
+		Vector<String> vec1 = new Vector<String>();
+		Vector<String> vec2 = new Vector<String>();
+		vec1.add(s1);
+		vec1.add(s2);
+		vec2.add(t2);
+		vec2.add(t1);
+		System.out.println(new HashSet<String>(vec1).equals(new HashSet<String>(vec2)));
 		*/
+		
+		
+		
+		/*for (int i = 0; i < seriesHicpUni.size(); i ++ ) {
+			System.out.println(seriesHicpSDMX.get(i));
+		}*/
+		
 		
 		/*
 		JSONObject obj = new JSONObject(" { \"firstName\": \"John\",  \"lastName\": \"Smith\",  \"age\": 25,   \"address\": { \"streetAddress\": \"21 2nd Street\",\"city\": \"New York\",  \"state\": \"NY\",  \"postalCode\": 10021  }, \"phoneNumbers\": [   {   \"type\": \"home\",  \"number\": \"212 555-1234\"   },  {  \"type\": \"fax\",  \"number\": \"646 555-4567\"  }]}");
@@ -204,13 +242,17 @@ public class Process {
 		System.out.println(pageName);
 		*/
 		
-		String jsonString = readFile("C:\\Users\\kovacbo\\bdcomp\\bdcomp_data\\2016-11-10\\json\\hicp");
+		/*
+		String jsonString = readFile("C:\\Users\\kovacbo\\bdcomp\\bdcomp_data\\2016-01-20\\json\\hicp");
 		//System.out.println(jsonString);
 		JSONObject obj = new JSONObject(jsonString);
 		
 		JSONObject index = obj.getJSONObject("dimension").getJSONObject("geo").getJSONObject("category").getJSONObject("index");
 		System.out.println(index.keySet());
 		System.out.println(index.get("UK"));
+		JSONObject values = obj.getJSONObject("value");
+		System.out.println(values.get("1"));
+		*/
 		
 		
 		/*LinkedList<Double> values = new LinkedList<Double>();
@@ -234,6 +276,31 @@ public class Process {
 		
 		
 	}
+	
+	public static <T> boolean compareVectors (Vector<T> a, Vector<T> b) {
+		outer:
+		for (Enumeration<T> e = a.elements(); e.hasMoreElements();) {
+			T el = e.nextElement();
+			for (Enumeration<T> f = b.elements(); f.hasMoreElements();) {
+				if (f.nextElement().equals(el)) {
+					continue outer;
+				}
+			}
+			return false;
+		}
+		outer:
+		for (Enumeration<T> e = b.elements(); e.hasMoreElements();) {
+			T el = e.nextElement();
+			for (Enumeration<T> f = a.elements(); f.hasMoreElements();) {
+				if (f.nextElement().equals(el)) {
+					continue outer;
+				}
+			}
+			return false;
+		}
+		return true;
+	}
+	
 	private static void fillMap(HashMap<String,Integer> hm) throws Throwable {
 		hm.put(new SimpleDateFormat("yyyy-MM").parse("2000-01-01").toString(), 134);
 	}

@@ -5,6 +5,7 @@ import ec.estat.bdcomp.BDCOMPException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.Vector;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -62,7 +63,7 @@ public class Series {
 		}
 		setSeries(s);		
 	}
-
+	
 	public Series(Date firstPeriod, Date lastPeriod, Indicator i, Country c) {		
 		this.firstPeriod = firstPeriod;
 		this.lastPeriod = lastPeriod;
@@ -91,22 +92,91 @@ public class Series {
 		return firstPeriod;
 	}
 	
-	public static boolean compareSetsOfSeries(Vector<Series> set1, Vector<Series> set2) throw BDCOMPException {
+	public static Vector<Series> choseFromDifferentProcessors(Vector<Series> v1, Vector<Series> v2) throws BDCOMPException {
+		if (v1.size() == 0) {
+			return v2;
+		}
+		if (v2.size() == 0) {
+			return v1;
+		}
+		
+		if(v1.size() != v2.size()) {
+			throw new BDCOMPException("Different sizes of series.");
+		} else {
+			if ( compareVectors(v1, v2)) {
+				return v1;
+			} else {
+				throw new BDCOMPException("Different values of series.");
+			}
+		}		
+	}
+	
+	/*
+	 *  This method is necessary since the natural implementation 
+	 *  new HashSet<Series>(a).equals(new HashSet<Series>(b))
+	 *  doesn't work for some reason.
+	 * */
+	
+	private static <T> boolean compareVectors (Vector<T> a, Vector<T> b) {
+		outer:
+		for (Enumeration<T> e = a.elements(); e.hasMoreElements();) {
+			T el = e.nextElement();
+			for (Enumeration<T> f = b.elements(); f.hasMoreElements();) {
+				if (f.nextElement().equals(el)) {
+					continue outer;
+				}				
+			}
+			//System.out.println("AAA");
+			//System.out.println(el);
+			/*System.out.println(b.size());
+			System.out.println(a.size());*/
+			
+			
+			return false;
+		}
+		outer:
+		for (Enumeration<T> e = b.elements(); e.hasMoreElements();) {
+			T el = e.nextElement();
+			for (Enumeration<T> f = a.elements(); f.hasMoreElements();) {
+				if (f.nextElement().equals(el)) {
+					continue outer;
+				}
+			}
+			//System.out.println("BBB");
+			return false;
+		}
+		return true;
+	}
+	
+	public static boolean compareSetsOfSeries(Vector<Series> set1, Vector<Series> set2) throws BDCOMPException {
 		if(set1.size() != set2.size()) {throw new BDCOMPException("Trying to compare sets of series of different sizes.");}
 		for (Series s: set1) {
 			
 			
 		}
 		
-		
+		throw new BDCOMPException("Not implemented.");
 	}
 	
-	public boolean equals(Series s1) throws BDCOMPException {
-		checkConsistency(this, s1);
+	public boolean equals(Object o) {
+		
+		if (! (o instanceof Series)) {return false;};
+		Series s1 = (Series) o;
+		try {
+			checkConsistency(this, s1);
+		} catch (BDCOMPException ex) {
+			//throw new RuntimeException(ex);
+			return false;
+		}
+		
 		Vector<Double> d1 = this.getSeries();
 		Vector<Double> d2 = s1.getSeries();
 		for (int i = 0; i < d1.size(); i ++) {
-			if (d1.get(i) != d2.get(i) ){
+			Double i1 = d1.get(i);
+			Double i2 = d2.get(i);
+			if (Double.compare(i1, i2) != 0){
+				System.out.println(o);
+				System.out.println(this);
 				return false;
 			}
 		}
@@ -155,6 +225,7 @@ public class Series {
 		if (! s1.getFirstPeriod().equals(s2.getFirstPeriod())) {throw new BDCOMPException ("Inconsistent first period of series.");};
 		if (! s1.getLastPeriod().equals(s2.getLastPeriod())) {throw new BDCOMPException ("Inconsistent last period of series.");};
 		if (! s1.getIndicator().equals(s2.getIndicator())) {throw new BDCOMPException ("Inconsistent indicators of series.");};		
+		//System.out.println(s1.getCountry() + "##" + s2.getCountry());
 		if (! s1.getCountry().equals(s2.getCountry())) {throw new BDCOMPException ("Different countries of series.");};
 	}
 	
@@ -171,6 +242,12 @@ public class Series {
 			if (oldSeries.get(i).isNaN()) {
 				data.add(newSeries.get(i));
 			} else {
+				// Here one can get notified where revisions take place.
+				if ( Double.compare(newSeries.get(i),oldSeries.get(i)) != 0 ) {
+					//System.out.println(newSeries.getCountry() + " " + i + " " + oldSeries.get(i) + " " + newSeries.get(i));
+					//throw new BDCOMPException("test");
+					//System.out.println(newSeries.getCountry() + " " + i + " " + oldSeries.get(i) + " " + newSeries.get(i));
+				}
 				data.add(oldSeries.get(i));
 			}
 		}
@@ -185,7 +262,7 @@ public class Series {
 		// !! This is masking problems with missing data
 		if (newSet.size() == 0) { return oldSet;} 
 		if (oldSet.size() != newSet.size()) {
-			//System.out.println(oldSet.size() + " " + newSet.size());
+			System.out.println(oldSet.size() + " " + newSet.size());
 			throw new BDCOMPException("Attempting to merge sets of series where the sets have different number of member series.");
 		}
 		//System.out.println(oldSet.size() + " " + newSet.size());

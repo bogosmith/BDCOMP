@@ -84,6 +84,8 @@ public class SDMXFileProcessor extends FileProcessor {
 		if (value == null) {
 			throw new BDCOMPException("Couldn't get value from observation");			
 		}
+		//System.out.println(period + " " + value);
+		
 		d.put(this.i.getFormatter().format(period), value);
 		
 	}

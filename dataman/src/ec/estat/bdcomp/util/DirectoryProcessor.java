@@ -5,6 +5,9 @@ import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.Arrays;
+import java.util.Enumeration;
+import java.util.Set;
+import java.util.HashSet;
 
 import ec.estat.bdcomp.BDCOMPException;
 import ec.estat.bdcomp.data.Series;
@@ -27,17 +30,16 @@ public class DirectoryProcessor {
 			File dataFile = null;
 			try {
 				dataFile = chooseFileForIndicator(properDir, processor);
+				Vector<Series> s = processor.processFile(dataFile);
+				if (res.size() == 0) {
+					res = s;
+				} else {				
+					res = Series.mergeSetsOfSeries(res, s);
+				}
 			} catch (BDCOMPException ex) {
 				//!! This is masking problems with missing data
 				continue;
 			}			
-			Vector<Series> s = processor.processFile(dataFile);
-			if (res.size() == 0) {
-				res = s;
-			} else {				
-				res = Series.mergeSetsOfSeries(res, s);
-			}
-			
 		}
 		return res;
 	}
@@ -51,6 +53,7 @@ public class DirectoryProcessor {
 			System.out.println(subdir.getName());
 			Vector<Series> s = null;
 			for (FileProcessor proc : processors) {
+				//System.out.println(proc.getClass().getName());
 				File properDir = chooseFormat(subdir, proc);
 				File dataFile = null;
 				try {
@@ -58,13 +61,22 @@ public class DirectoryProcessor {
 				} catch (BDCOMPException ex) {
 					//!! This is masking problems with missing data
 					continue;
+					//throw ex;
+					//s = new Vector<Series>();
 				}			
-				Vector<Series> s1 = proc.processFile(dataFile);
-				if (s == null) {s = s1;} else { if (!s1.equals(s)) {throw new BDCOMPException("Different series.");}}
+				Vector<Series> s1 = proc.processFile(dataFile);		
+				//System.out.println(s1);
+				if (s == null) {s = s1;} 
+				else {
+					s = Series.choseFromDifferentProcessors(s, s1);
+					/*if (!compareVectors(s, s2)){throw new BDCOMPException("Different series.");}
+					if (!compareVectors(s1, s2)){throw new BDCOMPException("Different series.");}*/
+				
+				}
 				
 				if (res.size() == 0) {
 					res = s;
-				} else {				
+				} else {					
 					res = Series.mergeSetsOfSeries(res, s);
 				}
 			}
@@ -74,8 +86,9 @@ public class DirectoryProcessor {
 	}
 	
 	
+
 	
-	private static File[] filter(File[] filesList) {
+	private static File[] filter(File[] filesList) {		
 		Vector<File> res = new Vector<File>();
 		for (int i = 0; i < filesList.length; i++) {
 			Matcher m = r.matcher(filesList[i].getName());
