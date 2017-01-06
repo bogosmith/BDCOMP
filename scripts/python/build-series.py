@@ -30,8 +30,10 @@ except NameError:
   sys.exit()
 
 def process_line(l):
+    #print l
     appr = l[:l.index(":")]
-    gr = re.search("raw:[\d\.]+",l).group(0)
+    #print "DDD"
+    gr = re.search("raw:\s*[\d\.]+",l).group(0)
     mean = gr[4:]
     return appr, mean 
 
@@ -42,40 +44,51 @@ def process_file(filepath, track, month, series):
   intrack = False
   incountry = ""
   for l in lines:
-    if l.startswith("Track" + track):
-      curr_track = l[:6]
+    if l.startswith("Track"):
+      curr_track = l[5]
       if track == curr_track:
-          intarck = True
+          intrack = True
           continue
       else:
           intrack = False
           continue
+    if incountry:
+      if len(l.strip()) == 0:
+        incountry = False
+        continue
     if intrack:
-       if l[:2] in geo:
-           incountry = l[:2]
+       if l.strip() in geo:
+           incountry = l.strip()
            continue
            
     if intrack and incountry:
-        if len(l) > 0:
-            appr, mean = process_line(l)
+        if len(l.strip()) > 0:
+            approach, mean = process_line(l)
             if month == 1:
-                series[incountry] = {}
-                series[incountry][approach] = {}
+                if not series:
+                    series[incountry] = {}
+                if not incountry in series:
+                    series[incountry] = {}
+                if not approach in series[incountry]:
+                    series[incountry][approach] = {}
             series[incountry][approach][month] = mean
-    
+            #print series
 
 def process_dir(participant_directory, track):
   res = {}
   rounds = os.listdir(participant_directory)
+  rounds = [x for x in rounds if x[0] != "."]
   # sort by filename to that round2.txt comes before round10.txt
   rounds.sort(key = lambda x:int(x[5:x.index(".")]))
   for r in rounds:
-      file = participant_directory + "\\" + r
+      print r
+      file = participant_directory + "/" + r
       process_file(file, track, months[r], res)
   return res
 
 parts = os.listdir(directory)
 for p in parts:
-  print process_dir(directory + "\\" + p,track)
-
+  processed = process_dir(directory + "/" + p,track)
+  #print processed['AT']
+  print processed
 
