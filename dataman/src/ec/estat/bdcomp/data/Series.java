@@ -15,7 +15,7 @@ import java.util.HashMap;
 public class Series {
 	
 	public enum Country {
-		AT, BE, BG, HR, CY, CZ, DK, EE, FI, FR, DE, El, HU, IE, IT, LV, LT, LU, MT, NL, PL, PT, RO, SK, SI, SP, SE, UK, EA, EU		
+		AT, BE, BG, HR, CY, CZ, DK, EE, ES, EL, FI, FR, DE, HU, IE, IT, LV, LT, LU, MT, NL, PL, PT, RO, SK, SI, SE, UK, EA, EU		
 	} 
 	
 	private final Indicator i;
@@ -100,7 +100,14 @@ public class Series {
 			return v1;
 		}
 		
-		if(v1.size() != v2.size()) {
+		if ( compareVectors(v1, v2)) {
+			if(v2.size() > v2.size()) {return v2;} else {return v1;}
+		} else {
+			throw new BDCOMPException("Different values of series.");
+		}
+		
+		/*if(v1.size() != v2.size()) {
+			System.out.println(v1.size() + " " + v2.size());
 			throw new BDCOMPException("Different sizes of series.");
 		} else {
 			if ( compareVectors(v1, v2)) {
@@ -108,7 +115,7 @@ public class Series {
 			} else {
 				throw new BDCOMPException("Different values of series.");
 			}
-		}		
+		}*/		
 	}
 	
 	/*
@@ -118,32 +125,74 @@ public class Series {
 	 * */
 	
 	private static <T> boolean compareVectors (Vector<T> a, Vector<T> b) {
+		//System.out.println("AAA");
 		outer:
-		for (Enumeration<T> e = a.elements(); e.hasMoreElements();) {
+		for (Enumeration<T> e = a.elements(); e.hasMoreElements();) {			
 			T el = e.nextElement();
 			for (Enumeration<T> f = b.elements(); f.hasMoreElements();) {
-				if (f.nextElement().equals(el)) {
+				T nextEl = f.nextElement();
+				if (nextEl.equals(el)) {
 					continue outer;
-				}				
+				} else if (el instanceof Series && (((Series)el).subseries((Series)nextEl) || ((Series) nextEl).subseries((Series)el) )) {
+					continue outer;
+				}
+				
 			}
+			
+			// Return true if one vector simply has a country missing.
+			if (el instanceof Series) {
+				for (Enumeration<T> f = b.elements(); f.hasMoreElements();) {
+					Series nextEl = (Series) f.nextElement();
+					if (((Series) el).c == nextEl.c) {
+						System.out.println("AAA");
+						System.out.println(el);
+						System.out.println(nextEl);
+						
+						return false;
+						}
+				
+				
+				}
+			}
+			return true;
 			//System.out.println("AAA");
 			//System.out.println(el);
+			//System.out.println("BBB");
 			/*System.out.println(b.size());
 			System.out.println(a.size());*/
 			
 			
-			return false;
+			
 		}
 		outer:
 		for (Enumeration<T> e = b.elements(); e.hasMoreElements();) {
 			T el = e.nextElement();
 			for (Enumeration<T> f = a.elements(); f.hasMoreElements();) {
-				if (f.nextElement().equals(el)) {
+				T nextEl = f.nextElement();
+				if (nextEl.equals(el)) {
+					continue outer;
+				} else if (el instanceof Series && (((Series)el).subseries((Series)nextEl) || ((Series) nextEl).subseries((Series)el) )) {
 					continue outer;
 				}
 			}
+
+			// Return true if one vector simply has a country missing.
+			if (el instanceof Series) {
+				for (Enumeration<T> f = a.elements(); f.hasMoreElements();) {
+					Series nextEl = (Series) f.nextElement();
+					if (((Series) el).c == nextEl.c) {
+						System.out.println("BBB");
+						return false;
+						
+					}
+				
+				
+				}
+			}
+			return true;
 			//System.out.println("BBB");
-			return false;
+			//throw new Error("BBBBB");
+			//return false;
 		}
 		return true;
 	}
@@ -156,6 +205,30 @@ public class Series {
 		}
 		
 		throw new BDCOMPException("Not implemented.");
+	}
+	
+	public boolean subseries (Series s1) {
+		try {
+			checkConsistency(this, s1);
+		} catch (BDCOMPException ex) {
+			//throw new RuntimeException(ex);
+			return false;
+		}
+		
+		Vector<Double> d1 = this.getSeries();
+		Vector<Double> d2 = s1.getSeries();
+		for (int i = 0; i < d1.size(); i ++) {
+			Double i1 = d1.get(i);
+			Double i2 = d2.get(i);
+			// allow if one series is undefined to take the other series
+			if (i1.isNaN() || i2.isNaN()) { continue;}
+			
+			if (Double.compare(i1, i2) != 0) {
+				return false;
+			}
+		}
+		return true;
+		
 	}
 	
 	public boolean equals(Object o) {
@@ -174,9 +247,12 @@ public class Series {
 		for (int i = 0; i < d1.size(); i ++) {
 			Double i1 = d1.get(i);
 			Double i2 = d2.get(i);
-			if (Double.compare(i1, i2) != 0){
+			if (Double.compare(i1, i2) != 0) {
+				/*System.out.println("Dump from class:" + this.getClass().getName());
+				System.out.println("In first series: " + d1.get(i));
+				System.out.println("In second series: " + d2.get(i));
 				System.out.println(o);
-				System.out.println(this);
+				System.out.println(this);*/
 				return false;
 			}
 		}
@@ -198,6 +274,36 @@ public class Series {
 		res.append("\n");
 		res.append(c); res.append(" "); res.append(series.toString());
 		return res.toString();
+	}
+	
+	public static String printVectorOfSeries(Vector<Series> vec) {
+		StringBuffer res = new StringBuffer();
+		Indicator i = vec.get(0).i;
+		Calendar calendar = vec.get(0).calendar;
+		Date firstPeriod = vec.get(0).firstPeriod;
+		int datapoints = vec.get(0).datapoints;
+		if (i.getPeriodicity() == Indicator.Periodicity.MONTHLY) {
+			calendar.setTime(firstPeriod);
+			res.append(i.formatter.format(calendar.getTime()));
+			res.append(" ");
+			for (int k = 0; k < datapoints-1; k++) {
+				calendar.add(Calendar.MONTH, 1);
+				res.append(i.formatter.format(calendar.getTime()));
+				res.append(" ");
+			}			
+		}
+		res.append("\n"); 
+		for (Series s: vec) {
+			res.append(s.c); res.append(" ");
+			for (double d : s.series) {
+				//if (Double.isNaN(d)) {res.append("-");} else { 
+					res.append(d); res.append(" ");
+				//}
+			}	
+			res.append("\n");
+		}
+		return res.toString();
+		
 	}
    /*
     * Expected format yyyy-mm-dd
@@ -244,7 +350,7 @@ public class Series {
 			} else {
 				// Here one can get notified where revisions take place.
 				if ( Double.compare(newSeries.get(i),oldSeries.get(i)) != 0 ) {
-					//System.out.println(newSeries.getCountry() + " " + i + " " + oldSeries.get(i) + " " + newSeries.get(i));
+					//System.out.println(Series.class.getName() + " Revision identified:" + newSeries.getCountry() + " " + i + " " + oldSeries.get(i) + " " + newSeries.get(i));
 					//throw new BDCOMPException("test");
 					//System.out.println(newSeries.getCountry() + " " + i + " " + oldSeries.get(i) + " " + newSeries.get(i));
 				}
@@ -260,23 +366,34 @@ public class Series {
 	 */
 	public static Vector<Series> mergeSetsOfSeries(Vector<Series> oldSet, Vector<Series> newSet) throws BDCOMPException {
 		// !! This is masking problems with missing data
-		if (newSet.size() == 0) { return oldSet;} 
-		if (oldSet.size() != newSet.size()) {
+		if (newSet.size() == 0) {
+			System.out.println(Series.class.getName() + "AAA");
+			return oldSet;
+			} 
+		
+		/*if (oldSet.size() != newSet.size()) {
 			System.out.println(oldSet.size() + " " + newSet.size());
 			throw new BDCOMPException("Attempting to merge sets of series where the sets have different number of member series.");
-		}
+		}*/
+		
 		//System.out.println(oldSet.size() + " " + newSet.size());
 		Vector<Series> res = new Vector<Series>();
+		outer:
 		for (Series s : oldSet) {
+			inner:
 			for (Series t: newSet) {
 				try {
 					checkConsistency(s,t);
-				} catch (BDCOMPException e){
-					continue;
+				} catch (BDCOMPException e){					
+					continue inner;
 				}
 				Series u = mergeSeries(s, t);
 				res.add(u);
+				continue outer;
 			}
+		
+			//if the series couldn't be matched
+			res.add(s);
 		}
 		if (res.size() != oldSet.size()) {
 			throw new BDCOMPException("Couldn't match all series in the sets.");

@@ -23,7 +23,7 @@ public class HICP extends Indicator {
 //	}
 	
 	public Vector<String> getCountryAbbreviations() {
-		String[] s = new String[]{"AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR", "DE", "El", "HU", "IE", "IT", "LV", "LT", "LU", "MT", "NL", "PL", "PT", "RO", "SK", "SI", "SP", "SE", "UK", "EA", "EU"};
+		String[] s = new String[]{"AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "ES", "FI", "FR", "DE", "EL", "HU", "IE", "IT", "LV", "LT", "LU", "MT", "NL", "PL", "PT", "RO", "SK", "SI", "SE", "UK", "EA", "EU"};
 		return (new Vector<String>(Arrays.asList(s)));
 	}
 	public boolean equals(Indicator j) {		

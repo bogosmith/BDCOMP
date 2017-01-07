@@ -59,7 +59,7 @@ public class DirectoryProcessor {
 				try {
 					dataFile = chooseFileForIndicator(properDir, proc);
 				} catch (BDCOMPException ex) {
-					//!! This is masking problems with missing data
+					//!! This is masking problems with missing data - namely missing files
 					continue;
 					//throw ex;
 					//s = new Vector<Series>();

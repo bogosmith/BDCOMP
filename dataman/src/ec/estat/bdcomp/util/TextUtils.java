@@ -39,19 +39,21 @@ public class TextUtils {
 	}
 	
 	public static Series.Country stringToCountry(String s) throws BDCOMPException {		
-		for (Series.Country c : Series.Country.values()) {
+		for (Series.Country c : Series.Country.values()) {		
 		    if (c.name().equals(s)) {
 		         return c;
 		    }
 		    
-	    }	
+	    }
+		
 		if (s.equals("EU28")) {
 	    	return Series.Country.EU;
 	    }
 	    if (s.equals("EA19")) {
 	    	return Series.Country.EA;
 	    }
-	    throw new BDCOMPException("Country can't be matched.");
+	   
+	    throw new BDCOMPException("Country " + s + " can't be matched.");
 	}
 
 }
