@@ -192,18 +192,24 @@ public class Process {
 		//HICP ix = new HICP(false);
 		//HICPExclEnergy ix = new HICPExclEnergy(false);
 		//Retail ix = new Retail(false);
-		Retail ix = new Retail(true);
+		//Retail ix = new Retail(true);
+		//RetailExclFuel ix = new RetailExclFuel(false);
+		RetailExclFuel ix = new RetailExclFuel(true);
+		//Unemployment ix = new Unemployment(true);
+		//TourismAllAccomodation ix = new TourismAllAccomodation(false);
+		//TourismHotels ix = new TourismHotels(false);
+		
 		UnicodeFileProcessor f1 = new UnicodeFileProcessor(ix);
 		SDMXFileProcessor f2 = new SDMXFileProcessor(ix);
 		JSONFileProcessor f3 = new JSONFileProcessor(ix);
 		ix.getFormatter().parse("2015-11");
 		//UnicodeFileProcessor f = new UnicodeFileProcessor(new Retail(false));
-		//File dir = new File("C:\\Users\\Stanislava\\git\\BDCOMP\\data\\");		
-		File dir = new File("H:\\bdcomp\\bdcomp_test_data7\\");
+		File dir = new File("C:\\Users\\Stanislava\\git\\BDCOMP\\data\\bdcomp_data\\");		
+		//File dir = new File("H:\\bdcomp\\bdcomp_test_data7\\");
 		Vector<FileProcessor> processors = new Vector<FileProcessor>();
 		//processors.add(f1);
-		//processors.add(f2);
-		processors.add(f3);
+		processors.add(f2);
+		//processors.add(f3);
 		Vector<Series> seriesHicp = DirectoryProcessor.processDirectory(dir, processors);
 		
 		/*for (Series ser : seriesHicp) {

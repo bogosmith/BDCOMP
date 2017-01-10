@@ -1,6 +1,7 @@
 package ec.estat.bdcomp.data;
 
 import ec.estat.bdcomp.BDCOMPException;
+import ec.estat.bdcomp.data.Indicator.Type;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -265,6 +266,7 @@ public class Series {
 	}
 
 	public String toString() {
+		//if ( 0==0) throw new RuntimeException("AAAA");
 		StringBuffer res = new StringBuffer();
 		if (i.getPeriodicity() == Indicator.Periodicity.MONTHLY) {
 			calendar.setTime(firstPeriod);
@@ -277,7 +279,18 @@ public class Series {
 			}			
 		}	
 		res.append("\n");
-		res.append(c); res.append(" "); res.append(series.toString());
+		if (i.getType() == Type.INDEX) {
+			//if ( 0==0) throw new RuntimeException("BBBB");
+			res.append(c); res.append(" "); res.append(series.toString());
+		} else if(i.getType() == Type.COUNT) {
+			//if ( 0==0) throw new RuntimeException("CCCC");
+			Vector<Integer> intseries = new Vector<Integer>();
+			for (int i = 0; i < series.size(); i ++) {
+				intseries.add((int)(series.get(i).doubleValue()));
+			}
+			res.append(c); res.append(" "); res.append(intseries.toString());
+			
+		}
 		return res.toString();
 	}
 	
@@ -302,7 +315,11 @@ public class Series {
 			res.append(s.c); res.append(" ");
 			for (double d : s.series) {
 				//if (Double.isNaN(d)) {res.append("-");} else { 
+				if (i.getType() == Type.INDEX || ((Double) d).isNaN()) {
 					res.append(d); res.append(" ");
+				} else if(i.getType() == Type.COUNT) {
+					res.append((int)d); res.append(" ");
+				}
 				//}
 			}	
 			res.append("\n");

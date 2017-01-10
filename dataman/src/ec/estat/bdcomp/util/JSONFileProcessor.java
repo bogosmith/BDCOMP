@@ -13,6 +13,8 @@ import ec.estat.bdcomp.BDCOMPException;
 import ec.estat.bdcomp.data.Indicator;
 import ec.estat.bdcomp.data.Series;
 
+import ec.estat.bdcomp.data.Indicator.Type;
+
 
 public class JSONFileProcessor extends FileProcessor {
 	public JSONFileProcessor(Indicator i) {
@@ -38,7 +40,8 @@ public class JSONFileProcessor extends FileProcessor {
 			int periods = timeIndex.keySet().size();
 			JSONObject values = obj.getJSONObject("value");
 			
-			for(String geo : geoIndex.keySet()) {
+			for(Object o : geoIndex.keySet()) {
+				String geo = (String) o;
 				if (countries.contains(geo)) {
 				    Series s = new Series(firstPeriod, lastPeriod, this.i, TextUtils.stringToCountry(geo));
 				    HashMap<String, Double> seriesValues = new HashMap<String, Double>();
@@ -53,8 +56,13 @@ public class JSONFileProcessor extends FileProcessor {
 				    	Double val = Double.parseDouble(__s);*/
 				    	String key = Integer.toString(i * periods + j);
 				    	Double val = Double.NaN;
-				    	if ( values.has(key)) {   		
-				    		val = (Double) values.get(key);				    		
+				    	if (values.has(key)) {   		
+				    		if (this.i.getType() == Type.INDEX) {
+				    			val = (Double) values.get(key);
+				    		} else if (this.i.getType() == Type.COUNT) {
+				    			val = new Double(((Integer) values.get(key)).intValue());
+				    		}
+				    		
 				    	}
 				    	//this.i.getFormatter().parse(invertedTimeIndex.get(Integer.toString(j)))
 				    	String periodString = invertedTimeIndex.get(Integer.toString(j));
@@ -79,7 +87,8 @@ public class JSONFileProcessor extends FileProcessor {
 	
 	private HashMap<String, String> invert(JSONObject mapping) {
 		HashMap<String, String> res = new HashMap<String, String>();
-		for (String k : mapping.keySet()) {
+		for (Object o : mapping.keySet()) {
+			String k = (String) o;
 			String val = mapping.get(k).toString();
 			k = k.replace("M", "-");
 			//k = k + "-01";
