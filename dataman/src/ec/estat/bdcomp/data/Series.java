@@ -40,7 +40,12 @@ public class Series {
 	}
 
 	public void setSeries(Vector<Double> series) {
-		assert series.size() <= datapoints;		
+		if (series.size() > datapoints) {
+			System.out.println(this.getClass().getName() + " Not enough datapoints. ");
+			System.out.println(datapoints);
+			System.out.println(series);
+		}
+		///assert series.size() <= datapoints;		
 		for (int i = datapoints - series.size(); i > 0; i --) {			
 			series.add(Double.NaN);
 		}

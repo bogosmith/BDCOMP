@@ -191,17 +191,18 @@ public class Process {
 		//System.out.println(new SimpleDateFormat("yyyy-MM").parse("2015M11").toString());
 		//HICP ix = new HICP(false);
 		//HICPExclEnergy ix = new HICPExclEnergy(false);
-		Retail ix = new Retail(false);
+		//Retail ix = new Retail(false);
+		Retail ix = new Retail(true);
 		UnicodeFileProcessor f1 = new UnicodeFileProcessor(ix);
 		SDMXFileProcessor f2 = new SDMXFileProcessor(ix);
 		JSONFileProcessor f3 = new JSONFileProcessor(ix);
 		ix.getFormatter().parse("2015-11");
 		//UnicodeFileProcessor f = new UnicodeFileProcessor(new Retail(false));
 		//File dir = new File("C:\\Users\\Stanislava\\git\\BDCOMP\\data\\");		
-		File dir = new File("H:\\bdcomp\\bdcomp_data\\");
+		File dir = new File("H:\\bdcomp\\bdcomp_test_data7\\");
 		Vector<FileProcessor> processors = new Vector<FileProcessor>();
-		processors.add(f1);
-		processors.add(f2);
+		//processors.add(f1);
+		//processors.add(f2);
 		processors.add(f3);
 		Vector<Series> seriesHicp = DirectoryProcessor.processDirectory(dir, processors);
 		
