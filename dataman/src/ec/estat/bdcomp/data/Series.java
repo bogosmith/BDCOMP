@@ -389,7 +389,7 @@ public class Series {
 	public static Vector<Series> mergeSetsOfSeries(Vector<Series> oldSet, Vector<Series> newSet) throws BDCOMPException {
 		// !! This is masking problems with missing data
 		if (newSet.size() == 0) {
-			System.out.println(Series.class.getName() + "AAA");
+			System.out.println(Series.class.getName() + "masking problems with missing data");
 			return oldSet;
 			} 
 		
@@ -399,27 +399,46 @@ public class Series {
 		}*/
 		
 		//System.out.println(oldSet.size() + " " + newSet.size());
+
+
 		Vector<Series> res = new Vector<Series>();
 		outer:
-		for (Series s : oldSet) {
+		for (Series s : oldSet) {			
 			inner:
 			for (Series t: newSet) {
 				try {
 					checkConsistency(s,t);
-				} catch (BDCOMPException e){					
+				} catch (BDCOMPException e){
+					//throw new RuntimeException(e);
 					continue inner;
 				}
 				Series u = mergeSeries(s, t);
 				res.add(u);
 				continue outer;
 			}
-		
+
 			//if the series couldn't be matched
 			res.add(s);
 		}
+		
 		if (res.size() != oldSet.size()) {
 			throw new BDCOMPException("Couldn't match all series in the sets.");
 		}
+		/*Hack EA into tourism*/
+		for (Series s : newSet) {
+			if (s.getCountry().equals(Series.Country.EA)) {
+				boolean foundInOld = false;
+				for (Series o: oldSet) {
+					if(o.getCountry().equals(Series.Country.EA)) {
+						foundInOld = true;
+					}
+				}
+				if (! foundInOld) {
+					res.add(s);
+				}
+			}
+		}
+	
 		return res;
 	}
 
