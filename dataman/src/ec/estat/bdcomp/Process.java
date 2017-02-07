@@ -196,6 +196,7 @@ public class Process {
 		//RetailExclFuel ix = new RetailExclFuel(false);
 		RetailExclFuel ix = new RetailExclFuel(true);
 		//Unemployment ix = new Unemployment(true);
+		//Unemployment ix = new Unemployment(false);
 		//TourismAllAccomodation ix = new TourismAllAccomodation(false);
 		//TourismHotels ix = new TourismHotels(false);
 		
@@ -203,12 +204,12 @@ public class Process {
 		SDMXFileProcessor f2 = new SDMXFileProcessor(ix);
 		JSONFileProcessor f3 = new JSONFileProcessor(ix);
 		ix.getFormatter().parse("2015-11");
-		//UnicodeFileProcessor f = new UnicodeFileProcessor(new Retail(false));
+		//Unicode	FileProcessor f = new UnicodeFileProcessor(new Retail(false));
 		File dir = new File("C:\\Users\\Stanislava\\git\\BDCOMP\\data\\bdcomp_data\\");		
 		//File dir = new File("H:\\bdcomp\\bdcomp_test_data7\\");
 		Vector<FileProcessor> processors = new Vector<FileProcessor>();
-		//processors.add(f1);
-		processors.add(f2);
+		processors.add(f1);
+		//processors.add(f2);
 		//processors.add(f3);
 		Vector<Series> seriesHicp = DirectoryProcessor.processDirectory(dir, processors);
 		

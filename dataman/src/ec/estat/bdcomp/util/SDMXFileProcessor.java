@@ -91,8 +91,10 @@ public class SDMXFileProcessor extends FileProcessor {
 	}
 	
 	private Series processSeries(Node series, String country, Date firstPeriod, Date lastPeriod) throws BDCOMPException {	
-				
+		
+
 		Series s = new Series(firstPeriod, lastPeriod, i, TextUtils.stringToCountry(country));
+		
 		
 		HashMap<String, Double> values = new HashMap<String, Double>();
 		NodeList children = series.getChildNodes();
@@ -102,7 +104,7 @@ public class SDMXFileProcessor extends FileProcessor {
 				processObservation(next, values);
 			}			
 		}
-		
+
 		s.setSeries(values);
 		return s;		
 	} 
